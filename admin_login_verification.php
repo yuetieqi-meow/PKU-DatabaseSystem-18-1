@@ -26,8 +26,9 @@
 		$password = $_COOKIE['password'];
 		$sqlname = $_COOKIE['sqlname'];
 
-//		echo $admin_username."<br>";
-//		echo $admin_password."<br>";
+		//如果没有cookie就把变量设置为默认值以正常连接数据库
+		if(!isset($username)) $username = 'root';
+		if(!isset($sqlname)) $sqlname = 'booksql';
 
 		//连接数据库
 		$mysqli = new mysqli('localhost', $username, $password, $sqlname);
