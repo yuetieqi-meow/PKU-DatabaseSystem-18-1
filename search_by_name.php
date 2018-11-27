@@ -71,6 +71,7 @@
 			}
 			else{
 				echo '<li class="upper_navigation" style="float: right;"><a href="admin_login">管理员登陆</a></li>';
+				echo '<li class="upper_navigation" style="float: right;"><a href="admin_userregister">管理员注册</a></li>';
 			}
 		?>
 
