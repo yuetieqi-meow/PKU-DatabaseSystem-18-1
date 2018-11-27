@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 	<meta charset="UTF-8">
-	<title>查询界面</title>
+	<title>根据书名检索销量</title>
 </head>
 <body>
 	<style type="text/css">
@@ -55,7 +55,6 @@
 	<div id="header" style="background-color: orange; padding: 5px;" >
 		<h2 style="text-align: center;">图书数据库检索系统</h2>		
 	</div>
-
 	<ul class="upper_navigation">
 		<li class="upper_navigation"><a href="search_by_name">书目检索</a></li>
 		<li class="upper_navigation"><a href="search_owner">作者检索</a></li>
@@ -67,20 +66,15 @@
 			}
 			else{
 				echo '<li class="upper_navigation" style="float: right;"><a href="admin_login">管理员登陆</a></li>';
-				echo '<li class="upper_navigation" style="float: right;"><a href="admin_userregister">管理员注册</a></li>';
+                echo '<li class="upper_navigation" style="float: right;"><a href="admin_userregister">管理员注册</a></li>';
 			}
 		?>
 	</ul>
-
-	<form method="post" action="search_by_name.php" style="margin: auto;">
+	<form method="post" action="search_sales_results.php" style="margin: auto;">
 		<h4 style="text-align: center;">请输入要检索的书籍的名称</h4>
 
 		<div style="display: flex; justify-content: center;">
 				<input class="box" type="text" name="book_name">
 				<button class="button" type="submit" id="submit">查询</button>		
 		</div>
-
-	</form>
-	
-</body>
 </html>
