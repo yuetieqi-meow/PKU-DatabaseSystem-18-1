@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>图书数据库检索系统</title>
+</head>
+<body>
+	<style type="text/css">
+		div.function_odd{
+			background-color: AliceBlue;
+			padding: 1px;
+		}
+		div.function_even{
+			background-color: DarkGray;
+			padding: 1px;
+		}
+		div>a:first-child{
+			text-decoration: none;
+		}
+
+		div:link{}
+		div:hover{
+			background-color: Aqua;
+		}
+	</style>
+
+
+	<div id="header" style="background-color: orange; padding: 5px;" >
+		<h2 style="text-align: center;">图书数据库检索系统</h2>		
+	</div>
+
+	<div class="function_odd">
+		<a href="/php_scripts/1search_by_name/sbn_entrance.php">
+			<p style="text-align: center;">根据书名检索书籍</p>
+		</a>
+	</div>
+
+	<div class="function_even">
+		<a href="/php_scripts/2search_owner/so_entrance.php">
+			<p style="text-align: center;">根据书名查找拥有的人</p>
+		</a>
+	</div>
+</body>
+</html>

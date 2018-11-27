@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>图书数据库检索系统</title>
+</head>
+<body>
+	<div id="header" style="background-color: orange; padding: 5px;" >
+		<h2 style="text-align: center;">图书数据库检索系统</h2>		
+	</div>
+
+	<form method="post" action="login_redirect.php">
+	用户名：
+	<br>
+	<input type="text" name="username" value="root">
+	<br>
+	密码：
+	<br>
+	<input type="password" name="password">
+	<br>
+	要连接的数据库名称：
+	<br>
+	<input type="text" name="sqlname" value="booksql">
+	<br>
+	<input type="submit" id="submit" value="登陆">
+	<br>
+</body>
+</html>
