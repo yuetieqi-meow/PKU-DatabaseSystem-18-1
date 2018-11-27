@@ -6,6 +6,31 @@
 </head>
 <body>
 	<style type="text/css">
+		ul.upper_navigation{
+			list-style-type: none;
+			margin: 0;
+			padding: 10px;
+			background-color: gray;
+		}
+		li{
+			display: inline;
+			margin: 0px;
+		}
+		li.current_navigation a{
+			background-color: #111;
+		}
+		li.upper_navigation a,li.current_navigation a{
+			color: white;
+			text-align: center;
+			text-decoration: none;
+			padding: 10px;
+		}
+		li.upper_navigation a:hover{
+			background-color: #111;
+		}
+		li.upper_navigation a:visited{
+			color: white;
+		}
 		div.content_odd{
 			background-color: DarkGray;
 			padding: 5px;
@@ -33,7 +58,21 @@
 	<div id="header" style="background-color: orange; padding: 5px;" >
 		<h2 style="text-align: center;">布尔检索 · 检索结果</h2>		
 	</div>
-
+	<ul class="upper_navigation">
+		<li class="current_navigation"><a href="search_by_name">书目检索</a></li>
+		<li class="upper_navigation"><a href="search_owner">作者检索</a></li>
+		<li class="upper_navigation"><a href="search_sales">销量检索</a></li>
+		<li class="upper_navigation"><a href="boolean_search">布尔检索</a></li>
+        <?php
+        if(isset($_COOKIE['admin_username'])){
+            echo '<li class="upper_navigation" style="float: right;"><a href="admin_logout">'.$_COOKIE['admin_username'].'</a></li>';
+        }
+        else{
+            echo '<li class="upper_navigation" style="float: right;"><a href="admin_login">管理员登陆</a></li>';
+        }
+        ?>
+		
+	</ul>
 
 	<?php
 		error_reporting(0);
