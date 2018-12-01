@@ -4,27 +4,45 @@
 <head>
 <title>登录</title>
 <style>
-.error {color: #FF0000;}
+	.error {
+		color: #FF0000;
+		text-align:center;
+	}
 	h2{
-			background-color: AliceBlue;
-			padding: 10px;
-		}
+		background-color: AliceBlue;
+		padding: 10px;
+		text-align:center;
+	}
+	h3{
+		text-align:center;
+		padding:5px 20px;
+		color: #FF0000;
+	}
+		
 </style>
 
 </head>
 <body> 
 
 <h2>管理员登录</h2>
-<p><span class="error">* 必需的字段</span></p>
+<h3>* 必需的字段</h3>
 
 <form name="form" onsubmit="return validateForm()" method="post" action="admin_login_verification.php" >
+   
+   <div style="display: flex; justify-content: center;">
    姓名：<input type="text" name="admin_username">
    <span id="username_span" class="error">* </span>
+   </div>
    <br><br>
+   
+   <div style="display: flex; justify-content: center;">
    密码：<input type="password" name="admin_password">
    <span id="password_span" class="error">* </span>
+   </div>
    <br><br>
+   <div style="display: flex; justify-content: center;">
    <button type="submit" name="submit">登录</button> 
+   </div>
 </form>
 <br><br>
 
