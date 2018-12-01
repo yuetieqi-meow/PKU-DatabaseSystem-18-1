@@ -39,11 +39,18 @@
  	$username = $_POST['name'];
 	$userpd = $_POST['password'];
 	$userpd2 = $_POST['password2'];
+    //从cookie获取用户最初在登陆界面输入的信息
+    $username = $_COOKIE['username'];
+    $passwordn = $_COOKIE['password'];
+    $sqlname = $_COOKIE['sqlname'];
 
+    //如果没有cookie就把变量设置为默认值以正常连接数据库
+    if(!isset($username)) $username = 'root';
+    if(!isset($sqlname)) $sqlname = 'booksql';
 		echo '<h3>你好</h3>';
 
 		//连接数据库
-		$mysqli = new mysqli('localhost', 'root', '', 'booksql');
+		$mysqli = new mysqli('localhost', $username, $passwordn, $sqlname);
 		
 		if(!$mysqli){
 			die("连接数据库失败：".mysqli_error());

@@ -57,9 +57,9 @@
 	</div>
 	<ul class="upper_navigation">
 		<li class="upper_navigation"><a href="search_by_name">书目检索</a></li>
-		<li class="upper_navigation"><a href="search_owner">作者检索</a></li>
+		<li class="upper_navigation"><a href="search_owner">库存检索</a></li>
 		<li class="current_navigation"><a href="search_sales">销量检索</a></li>
-		<li class="upper_navigation"><a href="boolean_search">布尔检索</a></li>
+		<li class="upper_navigation"><a href="boolean_search">高级检索</a></li>
 		<?php
 			if(isset($_COOKIE['admin_username'])){
 				echo '<li class="upper_navigation" style="float: right;"><a href="admin_logout">'.$_COOKIE['admin_username'].'</a></li>';

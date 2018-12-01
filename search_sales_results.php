@@ -58,19 +58,20 @@
 
 
 	<div id="header" style="background-color: orange; padding: 5px;" >
-		<h2 style="text-align: center;">根据书名检索书籍 · 检索结果</h2>		
+		<h2 style="text-align: center;">根据书名检索书籍 · 检索结果</h2>
 	</div>
 	<ul class="upper_navigation">
 		<li class="upper_navigation"><a href="search_by_name">书目检索</a></li>
-		<li class="upper_navigation"><a href="search_owner">作者检索</a></li>
+		<li class="upper_navigation"><a href="search_owner">库存检索</a></li>
 		<li class="current_navigation"><a href="search_sales">销量检索</a></li>
-		<li class="upper_navigation"><a href="boolean_search">布尔检索</a></li>
+		<li class="upper_navigation"><a href="boolean_search">高级检索</a></li>
         <?php
         if(isset($_COOKIE['admin_username'])){
             echo '<li class="upper_navigation" style="float: right;"><a href="admin_logout">'.$_COOKIE['admin_username'].'</a></li>';
         }
         else{
             echo '<li class="upper_navigation" style="float: right;"><a href="admin_login">管理员登陆</a></li>';
+            echo '<li class="upper_navigation" style="float: right;"><a href="admin_userregister">管理员注册</a></li>';
         }
         ?>
 		
@@ -101,7 +102,9 @@
 		$result = $mysqli->query($sql_query, MYSQLI_STORE_RESULT);
 		//统计并显示结果数量
 		$total_count = mysqli_num_rows($result);
+
 			list($num) = $result->fetch_row();
+			if(isset($num)==false)$num=0;
 			//输出检索结果
 			echo '<div style="background-color:DarkTurquoise; padding:5px;"><h4>《'.$bookname.'》的总销量为'.$num.'</h4></div>';
 		
