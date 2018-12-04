@@ -66,8 +66,8 @@
 				echo '<li class="upper_navigation" style="float: right;"><a href="admin_logout">'.$_COOKIE['admin_username'].'</a></li>';
 			}
 			else{
-				echo '<li class="upper_navigation" style="float: right;"><a href="admin_login">管理员登陆</a></li>';
-				echo '<li class="upper_navigation" style="float: right;"><a href="admin_userregister">管理员注册</a></li>';
+				echo '<li class="upper_navigation" style="float: right;"><a href="admin_login">登陆</a></li>';
+				echo '<li class="upper_navigation" style="float: right;"><a href="admin_userregister">注册</a></li>';
 			}
 		?>
 		
