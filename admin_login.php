@@ -30,7 +30,7 @@
 <form name="form" onsubmit="return validateForm()" method="post" action="admin_login_verification.php" >
    
    <div style="display: flex; justify-content: center;">
-   手机号码：<input type="text" name="admin_username">
+   手机号码：<input type="text" name="admin_phone">
    <span id="username_span" class="error">* </span>
    </div>
    <br><br>
