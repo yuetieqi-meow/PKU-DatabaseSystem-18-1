@@ -1,8 +1,8 @@
-﻿
+
 <!DOCTYPE HTML> 
 <html>
 <head>
-<title>用户注册界面</title>
+<title>用户注册</title>
 <style>
 .error {color: #FF0000;}
 	h2{
@@ -24,8 +24,8 @@
 
 <?php
 // 定义变量并设置为空值
-$nameErr = $passwordErr =  $password2Err = "";
-$name = $password = $password2 = "";
+$nameErr = $passwordErr =  $password2Err = $sexErr = $phoneErr = "";
+$name = $password = $password2 = $sex = $phone = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
    if (empty($_POST["name"])) {
@@ -72,13 +72,26 @@ function test_input($data) {
    姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名：<input type="text" name="name">
    <span class="error">* <?php echo $nameErr;?></span>
    </div>
-   <br><br>
+   <br>
+   
+   	<div style="display: flex; justify-content: center;">
+   性&nbsp;&nbsp;&nbsp;&nbsp;别：<input type="radio" name="sex" value="male">Male<br>
+   <input type="radio" name="sex" value="female">Female<br>
+   <span class="error">* <?php echo $sexErr;?></span>
+   </div>
+   <br>
+   
+    <div style="display: flex; justify-content: center;">
+   电话号码：<input type="text" name="phone">
+   <span class="error">* <?php echo $phoneErr;?></span>
+   </div>
+   <br>
    
    <div style="display: flex; justify-content: center;">
    密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码：<input type="password" name="password">
    <span class="error">* <?php echo $passwordErr;?></span>
    </div>
-   <br><br>
+   <br>
    
    <div style="display: flex; justify-content: center;">
    确认密码：<input type="password" name="password2">
