@@ -33,30 +33,25 @@
 	<div id="header" style="background-color: orange; padding: 5px;" >
 		<h2 style="text-align: center;">注册</h2>		
 	</div>
-	
+
 
 	<?php
  	$username = $_POST['name'];
 	$userpd = $_POST['password'];
 	$userpd2 = $_POST['password2'];
-    //从cookie获取用户最初在登陆界面输入的信息
-    $username = $_COOKIE['username'];
-    $passwordn = $_COOKIE['password'];
-    $sqlname = $_COOKIE['sqlname'];
+	$usergender = $_POST['sex'];
+	$userphone = $_POST['phone'];
 
-    //如果没有cookie就把变量设置为默认值以正常连接数据库
-    if(!isset($username)) $username = 'root';
-    if(!isset($sqlname)) $sqlname = 'booksql';
 		echo '<h3>你好</h3>';
 
 		//连接数据库
-		$mysqli = new mysqli('localhost', $username, $passwordn, $sqlname);
+		$mysqli = new mysqli('localhost', 'root', '', 'booksql');
 		
 		if(!$mysqli){
 			die("连接数据库失败：".mysqli_error());
 		}
 		
-		//$user_query = "SELECT * FROM user_login_data WHERE username= $username ";
+		//$user_query = "SELECT * FROM customer WHERE username= $username ";
 		
 		if (empty($_POST["name"])) {
 			
@@ -70,6 +65,20 @@
 			exit;
 		} else {
 		$password = test_input($_POST["password"]);
+		}
+		
+		if (empty($_POST["sex"])) {
+		echo '错误：性别是必填的。<a href="javascript:history.back(-1);">返回</a>';
+			exit;
+		} else {
+		$sex = test_input($_POST["sex"]);
+		}
+		
+		if (empty($_POST["phone"])) {
+		echo '错误：手机号码是必填的。<a href="javascript:history.back(-1);">返回</a>';
+			exit;
+		} else {
+		$phone = test_input($_POST["phone"]);
 		}
 
 		if (empty($_POST["password2"])) {
@@ -91,7 +100,7 @@
 		
 		
 		//检测用户名是否已存在
-		$check_query = mysqli_query($mysqli, 'SELECT * FROM user_login_data WHERE username="'. $username. '"' );
+		$check_query = mysqli_query($mysqli, 'SELECT * FROM customer WHERE cname="'. $username. '"' );
 		if (mysqli_fetch_array($check_query)){
 			echo '错误：用户名已存在。<a href="javascript:history.back(-1);">返回</a>';
 			exit;
@@ -102,7 +111,7 @@
 		$mysqli->query('set names utf8') or die('query字符集错误');	
 
 		//在数据库中添加
-		$sql_query = "INSERT INTO user_login_data(username, password) VALUES('$username','$userpd')";
+		$sql_query = "INSERT customer(cname, cpassword, cphone, cgender) VALUES('$username','$userpd','$userphone','$usergender')";
 		if(mysqli_query($mysqli,$sql_query )){
 				exit('用户注册成功！点击此处<a href ="admin_login.php">登录</a>');
 			
