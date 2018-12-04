@@ -20,27 +20,26 @@
 		    echo $sHtml;
 		}
 
-		$admin_username = $_POST['admin_username'];
+		$admin_phone = $_POST['admin_phone'];
 		$admin_password = $_POST['admin_password'];
-		$username = $_COOKIE['username'];
+		$userphone = $_COOKIE['phone'];
 		$password = $_COOKIE['password'];
 		$sqlname = $_COOKIE['sqlname'];
 
-		//如果没有cookie就把变量设置为默认值以正常连接数据库
-		if(!isset($username)) $username = 'root';
-		if(!isset($sqlname)) $sqlname = 'booksql';
+//		echo $admin_username."<br>";
+//		echo $admin_password."<br>";
 
 		//连接数据库
-		$mysqli = new mysqli('localhost', $username, $password, $sqlname);
+		$mysqli = new mysqli('localhost', $userphone, $password, $sqlname);
 		
 
-		$sql_query = 'SELECT password FROM user_login_data WHERE username ="'.$admin_username.'"';
+		$sql_query = 'SELECT password FROM customer WHERE cphone ="'.$admin_username.'"';
 		
 		$result = $mysqli->query($sql_query, MYSQLI_STORE_RESULT);
 		$pass = $result->fetch_row();
 
 		if($pass[0] == ''){
-			$data = array('error_type'=>'admin_username_not_found');
+			$data = array('error_type'=>'admin_userphone_not_found');
 			buildRequestForm('admin_login.php', $data);
 		}
 		else{	
@@ -50,7 +49,7 @@
 				buildRequestForm('admin_login.php', $data);
 			}
 			else{		//登录正常
-				setcookie('admin_username', $admin_username);
+				setcookie('admin_phone', $admin_phone);
 				header("Location: search_by_name.php"); 
 			}
 		}
@@ -58,3 +57,4 @@
 	?>
 </body>
 </html>
+
