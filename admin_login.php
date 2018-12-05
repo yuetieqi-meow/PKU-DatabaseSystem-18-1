@@ -30,13 +30,13 @@
 <form name="form" onsubmit="return validateForm()" method="post" action="admin_login_verification.php" >
    
    <div style="display: flex; justify-content: center;">
-   手机号码：<input type="text" name="admin_phone">
-   <span id="username_span" class="error">* </span>
+   手机号码：<input type="text" name="customer_phone">
+   <span id="phone_span" class="error">* </span>
    </div>
    <br><br>
    
    <div style="display: flex; justify-content: center;">
-   密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码：<input type="password" name="admin_password">
+   密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码：<input type="password" name="customer_password">
    <span id="password_span" class="error">* </span>
    </div>
    <br><br>
@@ -48,10 +48,10 @@
 
 <?php 
    if(isset($_POST['error_type'])){
-      if($_POST['error_type'] == 'admin_phone_not_found'){
+      if($_POST['error_type'] == 'customer_phone_not_found'){
          echo '<span class="error"> · 手机号码不存在！</span>';    
       }
-      else if($_POST['error_type'] == 'admin_password_incorrect'){
+      else if($_POST['error_type'] == 'customer_password_incorrect'){
          echo '<span class="error"> · 密码错误！</span>';
       }
    }
@@ -61,14 +61,14 @@
    function validateForm(){
       /*验证表单是否填充完全*/
       var legal = 1;    //合法性变量，如果存在不合法的情况就将其改为0
-      var phone = document.forms["form"]["phone"].value;
-      var password = document.forms["form"]["password"].value;
+      var phone = document.forms["form"]["customer_phone"].value;
+      var password = document.forms["form"]["customer_password"].value;
       if(phone == ""){
-         document.getElementById('username_span').innerHTML = "* 手机号不能为空";
+         document.getElementById('phone_span').innerHTML = "* 手机号不能为空";
          legal = 0;
       }
       else{
-         document.getElementById('username_span').innerHTML = "*";
+         document.getElementById('phone_span').innerHTML = "*";
       }
       if(password == ""){
          document.getElementById('password_span').innerHTML = "* 密码不能为空";

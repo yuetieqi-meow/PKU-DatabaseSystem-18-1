@@ -66,8 +66,8 @@
 		<li class="upper_navigation"><a href="boolean_search">高级检索</a></li>
 		
 		<?php
-			if(isset($_COOKIE['admin_username'])){
-				echo '<li class="upper_navigation" style="float: right;"><a href="admin_logout">'.$_COOKIE['admin_username'].'</a></li>';
+			if(isset($_COOKIE['customer_name'])){
+				echo '<li class="upper_navigation" style="float: right;"><a href="admin_logout">欢迎您，'.$_COOKIE['customer_name'].'</a></li>';
 			}
 			else{
 				echo '<li class="upper_navigation" style="float: right;"><a href="admin_login">登陆</a></li>';

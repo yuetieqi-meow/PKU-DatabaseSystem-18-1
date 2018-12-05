@@ -7,7 +7,8 @@
 <body>
 	
 	<?php 
-		error_reporting(0);
+//		error_reporting(0);
+		//在出现bug的时候把上面这句注释掉！！
 
 		//带post跳转函数
 		function buildRequestForm($url, $data, $method = 'post'){
@@ -20,36 +21,41 @@
 		    echo $sHtml;
 		}
 
-		$admin_phone = $_POST['admin_phone'];
-		$admin_password = $_POST['admin_password'];
-		$userphone = $_COOKIE['phone'];
+		$customer_phone = $_POST['customer_phone'];
+		$customer_password = $_POST['customer_password'];
+
+		$username = $_COOKIE['username'];
 		$password = $_COOKIE['password'];
 		$sqlname = $_COOKIE['sqlname'];
 
-//		echo $admin_username."<br>";
-//		echo $admin_password."<br>";
+		echo $customer_phone."<br>";
+		echo $customer_password."<br>";
 
 		//连接数据库
-		$mysqli = new mysqli('localhost', $userphone, $password, $sqlname);
-		
+		$mysqli = new mysqli('localhost', $username, $password, $sqlname);
+		$mysqli->query('set names utf8') or die('query字符集错误');
 
-		$sql_query = 'SELECT password FROM customer WHERE cphone ="'.$admin_username.'"';
+		$sql_query = 'SELECT cpassword FROM customer WHERE cphone ="'.$customer_phone.'"';
 		
 		$result = $mysqli->query($sql_query, MYSQLI_STORE_RESULT);
 		$pass = $result->fetch_row();
 
 		if($pass[0] == ''){
-			$data = array('error_type'=>'admin_userphone_not_found');
+			$data = array('error_type'=>'customer_phone_not_found');
 			buildRequestForm('admin_login.php', $data);
 		}
 		else{	
-			if($pass[0] != $admin_password){
-				$data = array('error_type'=>'admin_password_incorrect');
+			if($pass[0] != $customer_password){
+				$data = array('error_type'=>'customer_password_incorrect');
 //				echo "incorrect";		//ceshi
 				buildRequestForm('admin_login.php', $data);
 			}
 			else{		//登录正常
-				setcookie('admin_phone', $admin_phone);
+				$query_name = 'SELECT cname FROM customer where cphone = "'.$customer_phone.'"';
+				$query_name_result = $mysqli->query($query_name, MYSQLI_STORE_RESULT);
+				$customer_name = $query_name_result->fetch_row()[0];
+				echo $customer_name;
+				setcookie('customer_name', $customer_name);
 				header("Location: search_by_name.php"); 
 			}
 		}

@@ -1,4 +1,4 @@
 <?php 
-	setcookie("admin_username", "");
+	setcookie("customer_name", "");
 	header("Location: search_by_name.php"); 
 ?>
