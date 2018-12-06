@@ -4,32 +4,36 @@
 	<meta charset="UTF-8">
 	<title>查询界面</title>
 </head>
-<body>
+<body background="森林.jpg" style="background-repeat:no-repeat"> 
 	<style type="text/css">
 		ul.upper_navigation{
 			list-style-type: none;
 			margin: 0;
 			padding: 10px;
-			background-color: gray;
+			background-color: #98FB98;
+			opacity:0.8
+			
 		}
 		li{
 			display: inline;
 			margin: 0px;
+			
 		}
 		li.current_navigation a{
-			background-color: #111;
+			background-color: #3CB371;
 		}
 		li.upper_navigation a,li.current_navigation a{
-			color: white;
+			color: black;
 			text-align: center;
 			text-decoration: none;
 			padding: 10px;
+			font-size:18;
 		}
 		li.upper_navigation a:hover{
-			background-color: #111;
+			background-color: #3CB371;
 		}
 		li.upper_navigation a:visited{
-			color: white;
+			color: black;
 		}
 		input.box{
 			width: 300px;
@@ -45,9 +49,22 @@
 			padding: 5px 20px;
 			font-size: 20px;
 			color: white;
-			background-color: blue;
+			background-color: #20B2AA;
 			border: solid;
-			border-color: blue;
+			border-color: #20B2AA;
+			opacity:0.9;
+		}
+		
+		button.button:hover{
+			background-color:#3CB371;
+			border-color: #3CB371;
+			opacity:0.8;
+		}
+		
+		round{
+			width:400px;                              
+			height:200px;
+			margin:auto;
 		}
 
 
@@ -55,8 +72,8 @@
 
 	
 
-	<div id="header" style="background-color: orange; padding: 5px;" >
-		<h2 style="text-align: center;">图书数据库检索系统</h2>		
+	<div id="header" style="background-color: #98FB98; padding: 5px;" >
+		<h1 style="text-align: center;">图书数据库检索系统</h1>		
 	</div>
 
 	<ul class="upper_navigation">
@@ -77,12 +94,12 @@
 
 	</ul>
 
-	<form method="post" action="search_by_name_result.php" style="margin: auto;">
-		<h4 style="text-align: center;">请输入要检索的书籍的名称</h4>
+	<form method="post" action="search_by_name_result.php" style="margin: auto; padding :100px;">
+		<h2 style="text-align: center;">请输入要检索的书籍的名称</h2>
 
 		<div style="display: flex; justify-content: center;">
 				<input class="box" type="text" name="book_name">
-				<button class="button" type="submit" id="submit">查询</button>		
+				<button class="button" type="submit" id="submit" >查询</button>		
 		</div>
 
 	</form>
@@ -91,8 +108,8 @@
 <br>
 <br>
 
-<div style="width:1200px; height:200px; overflow:scroll;" align="center">
-    <table border="1" rules="all" style="width:800px; height:100px; text-align:center">
+<div style=" overflow:scoll;">
+    <table border="1" rules="all" style="width:800px; height:100px; text-align:center; color:white; border-color:white;margin:auto;">
 <tr>
 <th>猜您喜欢</th>
 </tr>
@@ -173,7 +190,9 @@
         
 
 		//输出书名行
-		echo '<td>'."书名".'</td>';
+		
+		echo '<div id = "round"><td>'."书名".'</td></div>';
+		
         foreach($isbns as $bookk)
 		{
 			//根据ISBN获取这本书的其他信息
