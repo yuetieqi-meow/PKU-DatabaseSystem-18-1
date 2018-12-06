@@ -167,7 +167,10 @@
 
 		//根据值（销量优先于类型）进行降序排序
 		arsort($book_rank_array);
+		
         $isbns=array_keys($book_rank_array);
+        $isbns=array_slice($isbns,0,5);
+        
 
 		//输出书名行
 		echo '<td>'."书名".'</td>';
