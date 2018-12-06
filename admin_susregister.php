@@ -3,6 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>注册成功</title>
+    <script src="MD5.js"></script>
 </head>
 <body>
 	<style type="text/css">
@@ -33,7 +34,6 @@
 	<div id="header" style="background-color: orange; padding: 5px;" >
 		<h2 style="text-align: center;">注册</h2>		
 	</div>
-
 
 	<?php
  	$username = $_POST['name'];
@@ -105,19 +105,20 @@
 			echo '错误：用户名已存在。<a href="javascript:history.back(-1);">返回</a>';
 			exit;
 		}
-		
-		
+		$result=mysqli_query($mysqli,'SELECT COUNT(*) FROM customer');
+        list($num)=$result->fetch_row();
 		//解决中文显示成问号的问题
-		$mysqli->query('set names utf8') or die('query字符集错误');	
-
+		$mysqli->query('set names utf8') or die('query字符集错误');
 		//在数据库中添加
-		$sql_query = "INSERT customer(cname, cpassword, cphone, cgender) VALUES('$username','$userpd','$userphone','$usergender')";
+        $userpd=md5($userpd);
+        $num=$num+1;
+		$sql_query = "INSERT customer(cID,cname, cpassword, cphone, cgender) VALUES('$num','$username','$userpd','$userphone','$usergender')";
 		if(mysqli_query($mysqli,$sql_query )){
 				exit('用户注册成功！点击此处<a href ="admin_login.php">登录</a>');
 			
 		}
 		else{
-			echo '添加数据失败：'.mysqli_error(),'<br />';
+			echo '添加数据失败：'.mysqli_error(),'<br/>';
 			echo '点击此处 <a href="javascript:history.back(-1);">返回</a> 重试';
 		}
 		
