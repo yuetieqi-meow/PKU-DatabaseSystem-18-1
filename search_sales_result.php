@@ -2,10 +2,11 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>查询结果-布尔检索</title>
+	<title>查询结果-根据书名检索销量</title>
 </head>
-<body background="森林.jpg" > 
+<body background="森林.jpg"> 
 	<style type="text/css">
+		
 		ul.upper_navigation{
 			list-style-type: none;
 			margin: 0;
@@ -45,7 +46,6 @@
 			background-color: AliceBlue;
 			padding: 5px;
 			opacity:0.8;
-			float:right;
 		}
 		div:link{}
 		div:hover{
@@ -75,14 +75,15 @@
 			float:left;
 		}
 	</style>
-	
+
+
 	<div id="header" style="background-color: #98FB98; padding: 5px;" >
-		<h2 style="text-align: center;">高级检索 · 检索结果</h2>
+		<h2 style="text-align: center;">根据书名检索书籍 · 检索结果</h2>
 	</div>
 	<ul class="upper_navigation">
-		<li class="current_navigation"><a href="search_by_name">书目检索</a></li>
+		<li class="upper_navigation"><a href="search_by_name">书目检索</a></li>
 		<li class="upper_navigation"><a href="search_owner">库存检索</a></li>
-		<li class="upper_navigation"><a href="search_sales">销量检索</a></li>
+		<li class="current_navigation"><a href="search_sales">销量检索</a></li>
 		<li class="upper_navigation"><a href="boolean_search">高级检索</a></li>
         <?php
         if(isset($_COOKIE['admin_username'])){
@@ -95,17 +96,11 @@
         ?>
 		
 	</ul>
-
 	<?php
 		error_reporting(0);
 
-		$condition1 = $_POST['condition1'];
-		$term1 = $_POST['term1'];
-		$connection = $_POST['connection'];
-		$condition2 = $_POST['condition2'];
-		$term2 = $_POST['term2'];
-
-		//连接数据库
+		$bookname = $_POST['book_name'];
+		//从cookie获取用户最初在登陆界面输入的信息
 		$username = $_COOKIE['username'];
 		$password = $_COOKIE['password'];
 		$sqlname = $_COOKIE['sqlname'];
@@ -113,45 +108,30 @@
 		//如果没有cookie就把变量设置为默认值以正常连接数据库
 		if(!isset($username)) $username = 'root';
 		if(!isset($sqlname)) $sqlname = 'booksql';
-
-		$mysqli = new mysqli('localhost', $username, $password, $sqlname);
 		
+		$mysqli = new mysqli('localhost', $username, $password, $sqlname);
 		//解决中文显示成问号的问题
 		$mysqli->query('set names utf8') or die('query字符集错误');	
-
 		//执行SQL语句
-		$sql_query =  "SELECT * FROM bookall WHERE (".$condition1." LIKE '%".$term1."%' ".$connection." ".$condition2." LIKE '%".$term2."%')";
-
+		$sql_query = "SELECT sum(oamount) AS selling_nunmber
+					FROM order_detail
+					WHERE obook in
+					(SELECT bookall.bISBN
+					FROM bookall
+					WHERE (((bookall.bname)='".$bookname."')));";
 		$result = $mysqli->query($sql_query, MYSQLI_STORE_RESULT);
-
 		//统计并显示结果数量
 		$total_count = mysqli_num_rows($result);
-		echo '<div style="background-color:#3CB371; padding:5px;"><h4>共有'.$total_count.'个符合要求的结果：</h4></div>';
 
-		$line = 0;
-		while(list($isbn, $author, $name, $press, $cin, $ein, $type, $img) = $result->fetch_row()){
-			//为奇偶行设置不同背景颜色
-			$line++;
-			if ($line % 2) $divclass = 'content_even';
-			else $divclass = 'content_odd';
-
+			list($num) = $result->fetch_row();
+			if(isset($num)==false)$num=0;
 			//输出检索结果
-		echo '<div class="'.$divclass.'">';
-			echo "<img src = ".$img." />";
-			echo "<br><br>ISBN：".$isbn."<br>";
-			echo "书名：".$name."<br>";
-			echo "作者：".$author."<br>";
-			echo "出版社：".$press."<br>";
-			echo "中文简介：".$cin."<br>";
-			echo "英文简介：".$ein."<br><br><br><br><br><br>";			
-			echo "</div>";
-		}
+			echo '<div style="background-color:DarkTurquoise; padding:5px;"><h4>《'.$bookname.'》的总销量为'.$num.'</h4></div>';
+		
 	?>
-
-	<form action="boolean_search.php">
+	<form action="search_sales.php">
 		<button type="submit" id="submit">重新检索</button>
 	</form>
-
 </body>
 </html>
 
