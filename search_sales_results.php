@@ -4,45 +4,53 @@
 	<meta charset="UTF-8">
 	<title>查询结果-根据书名检索销量</title>
 </head>
-<body>
+<body background="森林.jpg"> 
 	<style type="text/css">
 		
 		ul.upper_navigation{
 			list-style-type: none;
 			margin: 0;
 			padding: 10px;
-			background-color: gray;
+			background-color: #98FB98;
+			opacity:0.8
+			
 		}
 		li{
 			display: inline;
 			margin: 0px;
+			
 		}
 		li.current_navigation a{
-			background-color: #111;
+			background-color: #3CB371;
 		}
 		li.upper_navigation a,li.current_navigation a{
-			color: white;
+			color: black;
 			text-align: center;
 			text-decoration: none;
 			padding: 10px;
+			font-size:18;
 		}
 		li.upper_navigation a:hover{
-			background-color: #111;
+			background-color: #3CB371;
 		}
 		li.upper_navigation a:visited{
-			color: white;
+			color: black;
 		}
 		div.content_odd{
 			background-color: DarkGray;
 			padding: 5px;
+			opacity:0.8;
+			float:right;			
 		}
 		div.content_even{
 			background-color: AliceBlue;
 			padding: 5px;
+			opacity:0.8;
 		}
 		div:link{}
 		div:hover{
-			background-color: Aqua;
+			background-color: #3CB371;
+			opacity:0.8;
 		}
 		button{
 			width:200px;
@@ -50,14 +58,26 @@
 			padding: 5px 20px;
 			font-size: 20px;
 			color: white;
-			background-color: blue;
+			background-color: #20B2AA;
 			border: solid;
-			border-color: blue;
+			border-color: #20B2AA;
+			opacity:0.9;
+		}
+		button:hover{
+			background-color:#3CB371;
+			border-color: #3CB371;
+			opacity:0.8;
+		}
+		img {
+			width:200px;
+        	height:300px;
+			border-radius: 8px;
+			float:left;
 		}
 	</style>
 
 
-	<div id="header" style="background-color: orange; padding: 5px;" >
+	<div id="header" style="background-color: #98FB98; padding: 5px;" >
 		<h2 style="text-align: center;">根据书名检索书籍 · 检索结果</h2>
 	</div>
 	<ul class="upper_navigation">
@@ -70,8 +90,8 @@
             echo '<li class="upper_navigation" style="float: right;"><a href="admin_logout">'.$_COOKIE['admin_username'].'</a></li>';
         }
         else{
-            echo '<li class="upper_navigation" style="float: right;"><a href="admin_login">管理员登陆</a></li>';
-            echo '<li class="upper_navigation" style="float: right;"><a href="admin_userregister">管理员注册</a></li>';
+            echo '<li class="upper_navigation" style="float: right;"><a href="admin_login">登陆</a></li>';
+            echo '<li class="upper_navigation" style="float: right;"><a href="admin_userregister">注册</a></li>';
         }
         ?>
 		
