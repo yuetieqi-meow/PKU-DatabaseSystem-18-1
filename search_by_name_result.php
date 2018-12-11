@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<title>查询结果-根据书名检索书籍</title>
 </head>
-<body background="森林.jpg" > 
+<body background="images/forest.jpg" > 
 	<style type="text/css">
 		ul.upper_navigation{
 			list-style-type: none;
@@ -134,13 +134,13 @@
 
 			//输出检索结果
 			echo '<div class="'.$divclass.'">';
-			echo "<img src = 'images/images/".$name.".jpg' />";
+			echo '<img src = "images/'.$img.'" />';
 			echo "<br><br>ISBN：".$isbn."<br>";
 			echo "书名：".$name."<br>";
 			echo "作者：".$author."<br>";
 			echo "出版社：".$press."<br>";
 			echo "中文简介：".$cin."<br>";
-			echo "英文简介：".$ein."<br><br><br><br><br><br>";			
+			echo "英文简介：".$ein."<br>";			
 			echo "</div>";
 		}
 	?>

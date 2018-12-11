@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<title>查询结果-布尔检索</title>
 </head>
-<body background="森林.jpg" > 
+<body background="images/forest.jpg" > 
 	<style type="text/css">
 		ul.upper_navigation{
 			list-style-type: none;
@@ -136,8 +136,8 @@
 			else $divclass = 'content_odd';
 
 			//输出检索结果
-		echo '<div class="'.$divclass.'">';
-			echo "<img src = 'images/images/".$name.".jpg' />";
+			echo '<div class="'.$divclass.'">';
+			echo '<img src = "images/'.$img.'" />';
 			echo "<br><br>ISBN：".$isbn."<br>";
 			echo "书名：".$name."<br>";
 			echo "作者：".$author."<br>";

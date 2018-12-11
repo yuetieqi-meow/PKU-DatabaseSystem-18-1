@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<title>查询结果-根据书名查询拥有的人</title>
 </head>
-<body background="森林.jpg" > 
+<body background="images/forest.jpg" > 
 	<style type="text/css">
 		ul.upper_navigation{
 			list-style-type: none;
