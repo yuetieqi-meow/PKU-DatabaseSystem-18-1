@@ -137,7 +137,7 @@
 
 			//输出检索结果
 		echo '<div class="'.$divclass.'">';
-			echo "<img src = '".$name.".jpg' />";
+			echo "<img src = 'images/images/".$name.".jpg' />";
 			echo "<br><br>ISBN：".$isbn."<br>";
 			echo "书名：".$name."<br>";
 			echo "作者：".$author."<br>";
