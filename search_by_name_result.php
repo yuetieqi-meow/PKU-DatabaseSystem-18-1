@@ -52,7 +52,7 @@
 			background-color: #3CB371;
 			opacity:0.8;
 		}
-		button{
+		#submit{
 			width:200px;
         	height: 50px;
 			padding: 5px 20px;
@@ -63,7 +63,7 @@
 			border-color: #20B2AA;
 			opacity:0.9;
 		}
-		button:hover{
+		#submit:hover{
 			background-color:#3CB371;
 			border-color: #3CB371;
 			opacity:0.8;
@@ -73,6 +73,11 @@
         	height:300px;
 			border-radius: 8px;
 			float:left;
+		}
+		div.sell_information div{
+			display: inline-block;
+			width: 24%;
+			text-align: center;
 		}
 	</style>
 
@@ -134,14 +139,40 @@
 
 			//输出检索结果
 			echo '<div class="'.$divclass.'">';
-			echo '<img src = "images/'.$img.'" />';
-			echo "<br><br>ISBN：".$isbn."<br>";
-			echo "书名：".$name."<br>";
-			echo "作者：".$author."<br>";
-			echo "出版社：".$press."<br>";
-			echo "中文简介：".$cin."<br>";
-			echo "英文简介：".$ein."<br>";			
-			echo "</div>";
+				echo '<div style="overflow: hidden; ">';
+				echo '<img src = "images/'.$img.'" />';
+				echo "<br><br>ISBN：".$isbn."<br>";
+				echo "书名：".$name."<br>";
+				echo "作者：".$author."<br>";
+				echo "出版社：".$press."<br>";
+				echo "中文简介：".$cin."<br>";
+				echo "英文简介：".$ein."<br>";
+				echo '</div><br>';			
+
+			echo "本书的购买信息：<br>";
+
+            $warehouse_sql = 'SELECT wowner, wnumber, wprice FROM warehouse WHERE wbook = "'.$isbn.'"';
+            $warehouse_result = $mysqli->query($warehouse_sql, MYSQLI_STORE_RESULT);
+            while(list($owner, $number, $price) = $warehouse_result -> fetch_row()){
+                //获取作者姓名
+                $owner_sql = 'SELECT cname from customer where cID = "'.$owner.'"';
+                $owner_result = $mysqli->query($owner_sql, MYSQLI_STORE_RESULT);
+                $owner_name = $owner_result -> fetch_row();
+
+                echo '<div class="sell_information">';
+                echo '	<div><p>'.$owner_name[0].'</p></div>';
+                echo '	<div><p>￥'.$price.'</p></div>';
+                echo '	<div><p>库存'.$number.'本</p></div>';
+                echo '	<div><form action="confirm_purchase.php" method="post">
+                	<input name="owner" value="'.$owner.'" style="display:none; "/>
+                	<input name="book_isbn" value="'.$isbn.'" style="display:none; "/>
+                	<input name="price" value="'.$price.'" style="display:none; "/>
+                	<button type="submit">购买</button>
+                		</form></div>';
+
+                echo '</div>';
+            }
+			echo '</div>';
 		}
 	?>
 
@@ -149,6 +180,10 @@
         <button type="submit" id="submit">重新检索</button>
     </form>
 
+	<script type="text/javascript">
+		
+	</script>
+		
 </body>
 </html>
 

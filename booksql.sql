@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主机： 127.0.0.1:3306
--- 生成日期： 2018-12-11 11:17:32
+-- 生成日期： 2018-12-13 11:32:28
 -- 服务器版本： 5.7.23
 -- PHP 版本： 7.2.10
 
@@ -189,11 +189,12 @@ INSERT INTO `book_to_author` (`nID`, `nbook`, `nauthor`, `nauthor_order`) VALUES
 
 DROP TABLE IF EXISTS `customer`;
 CREATE TABLE IF NOT EXISTS `customer` (
-  `cID` varchar(255) DEFAULT NULL,
+  `cID` varchar(255) NOT NULL,
   `cname` varchar(255) DEFAULT NULL,
   `cgender` varchar(255) DEFAULT NULL,
   `cphone` varchar(255) DEFAULT NULL,
   `cpassword` text NOT NULL,
+  PRIMARY KEY (`cID`),
   KEY `cID` (`cID`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
@@ -338,64 +339,34 @@ INSERT INTO `member` (`mID`, `mname`, `mdepartment`, `mgender`) VALUES
 
 DROP TABLE IF EXISTS `order_detail`;
 CREATE TABLE IF NOT EXISTS `order_detail` (
-  `oID` varchar(255) DEFAULT NULL,
+  `oID` int(255) NOT NULL AUTO_INCREMENT,
   `obook` varchar(255) DEFAULT NULL,
   `oamount` int(8) DEFAULT NULL,
-  `osale` varchar(255) DEFAULT NULL,
-  KEY `osale` (`osale`) USING BTREE,
-  KEY `obook` (`obook`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+  `obuyer` varchar(255) DEFAULT NULL,
+  `oseller` varchar(255) DEFAULT NULL,
+  `otime` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`oID`),
+  KEY `obook` (`obook`) USING BTREE,
+  KEY `order_detail_ibfk_2` (`oseller`),
+  KEY `order_detail_ibfk_3` (`obuyer`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 --
 -- 转存表中的数据 `order_detail`
 --
 
-INSERT INTO `order_detail` (`oID`, `obook`, `oamount`, `osale`) VALUES
-('1', '9787040494792', 1, '1'),
-('2', '9787121139512', 1, '2'),
-('3', '9787121155352', 2, '2'),
-('4', '9787040406441', 1, '3'),
-('5', '9787121139512', 2, '4'),
-('6', '9787111376613', 2, '5'),
-('7', '9787121139253', 2, '5'),
-('8', '9787040406441', 2, '6'),
-('9', '9787040494792', 2, '6'),
-('10', '9787111376613', 2, '6'),
-('11', '9787301053669', 1, '7'),
-('12', '9787030362173', 5, '8'),
-('12', '9787030362173', 5, '8');
-
--- --------------------------------------------------------
-
---
--- 表的结构 `sale`
---
-
-DROP TABLE IF EXISTS `sale`;
-CREATE TABLE IF NOT EXISTS `sale` (
-  `sID` varchar(255) DEFAULT NULL,
-  `scustomer` varchar(255) DEFAULT NULL,
-  `sseller` varchar(255) DEFAULT NULL,
-  `stime` date DEFAULT NULL,
-  KEY `sale` (`sID`) USING BTREE,
-  KEY `sseller` (`sseller`) USING BTREE,
-  KEY `scustomer` (`scustomer`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
-
---
--- 转存表中的数据 `sale`
---
-
-INSERT INTO `sale` (`sID`, `scustomer`, `sseller`, `stime`) VALUES
-('1', '1', '2', '2018-10-02'),
-('2', '1', '3', '2018-10-02'),
-('3', '2', '1', '2018-10-02'),
-('4', '2', '3', '2018-10-02'),
-('5', '4', '3', '2018-10-02'),
-('6', '3', '2', '2018-10-02'),
-('7', '3', '4', '2018-10-02'),
-('8', '9', '4', '2018-12-06'),
-('8', '9', '4', '2018-12-06');
+INSERT INTO `order_detail` (`oID`, `obook`, `oamount`, `obuyer`, `oseller`, `otime`) VALUES
+(2, '9787121139512', 1, '1', NULL, '2018-12-13 10:31:56'),
+(3, '9787121155352', 2, '1', NULL, '2018-12-13 10:31:58'),
+(4, '9787040406441', 1, '2', NULL, '2018-12-13 10:31:58'),
+(5, '9787121139512', 2, '2', NULL, '2018-12-13 10:31:59'),
+(6, '9787111376613', 2, '3', NULL, '2018-12-13 10:31:59'),
+(7, '9787121139253', 2, '3', NULL, '2018-12-13 10:32:03'),
+(8, '9787040406441', 2, '4', NULL, '2018-12-13 10:32:01'),
+(9, '9787040494792', 2, '4', NULL, '2018-12-13 10:32:05'),
+(10, '9787111376613', 2, '5', NULL, '2018-12-13 10:32:07'),
+(11, '9787301053669', 1, '6', NULL, '2018-12-13 10:32:09'),
+(12, '9787030362173', 5, '8', NULL, '2018-12-13 10:32:15');
 
 -- --------------------------------------------------------
 
@@ -444,22 +415,22 @@ CREATE TABLE IF NOT EXISTS `warehouse` (
 --
 
 INSERT INTO `warehouse` (`wID`, `wbook`, `wowner`, `wdate`, `wnumber`, `wprice`) VALUES
-('1', '1007699860687', '1', '2018-10-01', 20, NULL),
-('2', '9787030362173', '1', '2018-10-01', 150, NULL),
-('3', '9787040406441', '1', '2018-10-01', 123, NULL),
-('4', '9787040494792', '1', '2018-10-01', 55, NULL),
-('5', '9787040406441', '2', '2018-10-01', 34, NULL),
-('6', '9787040494792', '2', '2018-10-01', 455, NULL),
-('7', '9787111376613', '2', '2018-10-01', 333, NULL),
-('8', '9787121139253', '2', '2018-10-01', 88, NULL),
-('9', '9787111376613', '3', '2018-10-01', 44, NULL),
-('10', '9787121139253', '3', '2018-10-01', 11, NULL),
-('11', '9787121139512', '3', '2018-10-01', 1111, NULL),
-('12', '9787121155352', '3', '2018-10-01', 234, NULL),
-('13', '9787121139512', '4', '2018-10-01', 8, NULL),
-('14', '9787121155352', '4', '2018-10-01', 778, NULL),
-('15', '9787121249884', '4', '2018-10-01', 67, NULL),
-('16', '9787301053669', '4', '2018-10-01', 666, NULL);
+('1', '1007699860687', '1', '2018-10-01', 20, 12.00),
+('2', '9787030362173', '1', '2018-10-01', 150, 23.00),
+('3', '9787040406441', '1', '2018-10-01', 123, 34.00),
+('4', '9787040494792', '1', '2018-10-01', 55, 45.00),
+('5', '9787040406441', '2', '2018-10-01', 34, 56.00),
+('6', '9787040494792', '2', '2018-10-01', 455, 67.00),
+('7', '9787111376613', '2', '2018-10-01', 333, 78.00),
+('8', '9787121139253', '2', '2018-10-01', 88, 89.00),
+('9', '9787111376613', '3', '2018-10-01', 44, 90.00),
+('10', '9787121139253', '3', '2018-10-01', 11, 98.00),
+('11', '9787121139512', '3', '2018-10-01', 1111, 87.00),
+('12', '9787121155352', '3', '2018-10-01', 234, 76.00),
+('13', '9787121139512', '4', '2018-10-01', 8, 65.00),
+('14', '9787121155352', '4', '2018-10-01', 778, 54.00),
+('15', '9787121249884', '4', '2018-10-01', 67, 43.00),
+('16', '9787301053669', '4', '2018-10-01', 666, 32.00);
 
 --
 -- 限制导出的表
@@ -477,14 +448,8 @@ ALTER TABLE `book_to_author`
 --
 ALTER TABLE `order_detail`
   ADD CONSTRAINT `order_detail_ibfk_1` FOREIGN KEY (`obook`) REFERENCES `bookall` (`bISBN`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `order_detail_ibfk_2` FOREIGN KEY (`osale`) REFERENCES `sale` (`sID`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- 限制表 `sale`
---
-ALTER TABLE `sale`
-  ADD CONSTRAINT `sale_ibfk_1` FOREIGN KEY (`sseller`) REFERENCES `customer` (`cID`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `sale_ibfk_2` FOREIGN KEY (`scustomer`) REFERENCES `customer` (`cID`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `order_detail_ibfk_2` FOREIGN KEY (`oseller`) REFERENCES `customer` (`cID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `order_detail_ibfk_3` FOREIGN KEY (`obuyer`) REFERENCES `customer` (`cID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- 限制表 `warehouse`
