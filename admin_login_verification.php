@@ -50,6 +50,7 @@ else{
         $customer_name = $query_name_result->fetch_row()[0];
         echo $customer_name;
         setcookie('customer_name', $customer_name);
+        setcookie('customer_phone', $customer_phone);
         header("Location: search_by_name.php");
     }
 }

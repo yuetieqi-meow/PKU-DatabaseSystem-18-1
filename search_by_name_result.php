@@ -48,10 +48,7 @@
 			float:right;
 		}
 		div:link{}
-		div:hover{
-			background-color: #3CB371;
-			opacity:0.8;
-		}
+
 		#submit{
 			width:200px;
         	height: 50px;
@@ -79,6 +76,12 @@
 			width: 24%;
 			text-align: center;
 		}
+		div.margin_box{
+			position:absolute;
+			margintop:-50px;
+			background-color:grey;
+			opesity:0.8;
+		}
 	</style>
 
 
@@ -91,8 +94,9 @@
 		<li class="upper_navigation"><a href="search_sales">销量检索</a></li>
 		<li class="upper_navigation"><a href="boolean_search">高级检索</a></li>
         <?php
-        if(isset($_COOKIE['admin_username'])){
-            echo '<li class="upper_navigation" style="float: right;"><a href="admin_logout">'.$_COOKIE['admin_username'].'</a></li>';
+        if(isset($_COOKIE['customer_name'])){
+            echo '<li class="upper_navigation" style="float: right;"><a href="admin_logout.php">退出登录</a></li>';
+            echo '<li class="upper_navigation" style="float: right;"><a href="shoppingcart.php">我的购物车</a></li>';
         }
         else{
             echo '<li class="upper_navigation" style="float: right;"><a href="admin_login">登陆</a></li>';
@@ -153,30 +157,48 @@
 
             $warehouse_sql = 'SELECT wowner, wnumber, wprice FROM warehouse WHERE wbook = "'.$isbn.'"';
             $warehouse_result = $mysqli->query($warehouse_sql, MYSQLI_STORE_RESULT);
-            while(list($owner, $number, $price) = $warehouse_result -> fetch_row()){
-                //获取作者姓名
-                $owner_sql = 'SELECT cname from customer where cID = "'.$owner.'"';
-                $owner_result = $mysqli->query($owner_sql, MYSQLI_STORE_RESULT);
-                $owner_name = $owner_result -> fetch_row();
 
-                echo '<div class="sell_information">';
-                echo '	<div><p>'.$owner_name[0].'</p></div>';
-                echo '	<div><p>￥'.$price.'</p></div>';
-                echo '	<div><p>库存'.$number.'本</p></div>';
-                echo '	<div><form action="confirm_purchase.php" method="post">
-                	<input name="owner" value="'.$owner.'" style="display:none; "/>
-                	<input name="book_isbn" value="'.$isbn.'" style="display:none; "/>
-                	<input name="price" value="'.$price.'" style="display:none; "/>
-                	<button type="submit">购买</button>
-                		</form></div>';
+            //判断是否登录，登录可以执行购买，否则需要注册或者登录
+			if(isset($_COOKIE['customer_name'])){
+				while(list( $owner, $number, $price, $name) = $warehouse_result -> fetch_row()){
+					//获取卖家姓名
+					$owner_sql = 'SELECT cname from customer where cID = "'.$owner.'"';
+					$owner_result = $mysqli->query($owner_sql, MYSQLI_STORE_RESULT);
+					$owner_name = $owner_result -> fetch_row();
 
-                echo '</div>';
+					echo '<div class="sell_information">';
+					echo '	<div ><p>'.$owner_name[0].'</p></div>';
+					echo '	<div ><p>￥'.$price.'</p></div>';
+					echo '	<div ><p>库存'.$number.'本</p></div>';
+					
+					//从cookie获取用户最初在登陆界面输入的信息
+					$admin_name = $COOKIE['phone'];
+					$admin_password = $COOKIE['password'];
+					
+					echo '	<div><form action="confirm_purchase.php" method="post">
+						<input name="owner" value="'.$owner.'" style="display:none; "/>
+						<input name="owner_name" value="'.$owner_name[0].'" style="display:none; "/>
+						
+                		<input name="name" value="'.$name.'" style="display:none; "/>
+                		<input name="number" value="'.$number.'" style="display:none; "/>
+                		<input name="book_isbn" value="'.$isbn.'" style="display:none; "/>
+                		<input name="price" value="'.$price.'" style="display:none; "/>
+						<button type="submit">购买</button>
+							</form></div>';
+					echo '</div>';
+				}echo '</div>';
+				}else{
+					echo"
+					<script type='text/javascript'>  						alert('您尚未登录，无法浏览详细的商品信息和进行购买,请先登录或注册');
+						location.href='admin_login.php';
+					</script> ";
+				}
+				echo '</div>';					
             }
-			echo '</div>';
-		}
+					
 	?>
 
-	<form action="search_by_name.php">
+	<form action="search_by_name.php" style="margin:auto;">
         <button type="submit" id="submit">重新检索</button>
     </form>
 

@@ -86,7 +86,8 @@
 		
 		<?php
 			if(isset($_COOKIE['customer_name'])){
-				echo '<li class="upper_navigation" style="float: right;"><a href="admin_logout">欢迎您，'.$_COOKIE['customer_name'].'</a></li>';
+                echo '<li class="upper_navigation" style="float: right;"><a href="admin_logout.php">退出登录</a></li>';
+                echo '<li class="upper_navigation" style="float: right;"><a href="shoppingcart.php">我的购物车</a></li>';
 			}
 			else{
 				echo '<li class="upper_navigation" style="float: right;"><a href="admin_login">登陆</a></li>';
@@ -100,7 +101,7 @@
 		<h2 style="text-align: center;">请输入要检索的书籍的名称</h2>
 
 		<div style="display: flex; justify-content: center;">
-				<input class="box" type="text" name="book_name" placeholder="直接点击查询可以浏览哟~">>
+				<input class="box" type="text" name="book_name">
 				<button class="button" type="submit" id="submit" >查询</button>		
 		</div>
 

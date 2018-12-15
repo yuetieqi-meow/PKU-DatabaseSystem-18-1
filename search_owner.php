@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<title>查询界面</title>
 </head>
-<body background="森林.jpg" style="background-repeat:no-repeat"> 
+<body background="images/forest.jpg" style="background-repeat:no-repeat">
 	<style type="text/css">
 		ul.upper_navigation{
 			list-style-type: none;
@@ -89,15 +89,16 @@
 		<li class="current_navigation"><a href="search_owner">库存检索</a></li>
 		<li class="upper_navigation"><a href="search_sales">销量检索</a></li>
 		<li class="upper_navigation"><a href="boolean_search">高级检索</a></li>
-		<?php
-			if(isset($_COOKIE['customer_name'])){
-				echo '<li class="upper_navigation" style="float: right;"><a href="admin_logout">欢迎您，'.$_COOKIE['customer_name'].'</a></li>';
-			}
-			else{
-				echo '<li class="upper_navigation" style="float: right;"><a href="admin_login">登陆</a></li>';
-				echo '<li class="upper_navigation" style="float: right;"><a href="admin_userregister">注册</a></li>';
-			}
-		?>
+        <?php
+        if(isset($_COOKIE['customer_name'])){
+            echo '<li class="upper_navigation" style="float: right;"><a href="admin_logout.php">退出登录</a></li>';
+            echo '<li class="upper_navigation" style="float: right;"><a href="shoppingcart.php">我的购物车</a></li>';
+        }
+        else{
+            echo '<li class="upper_navigation" style="float: right;"><a href="admin_login">登陆</a></li>';
+            echo '<li class="upper_navigation" style="float: right;"><a href="admin_userregister">注册</a></li>';
+        }
+        ?>
 		
 	</ul>
 
