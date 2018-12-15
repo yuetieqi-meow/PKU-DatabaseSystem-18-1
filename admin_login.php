@@ -45,6 +45,8 @@
    </div>
 </form>
 <br><br>
+<h3 style="text-align:center;">还未注册？<a href='admin_userregister'>立即注册获取更多信息</a></h3>
+
 
 <?php 
    if(isset($_POST['error_type'])){
