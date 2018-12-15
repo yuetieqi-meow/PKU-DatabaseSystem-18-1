@@ -100,7 +100,7 @@
 		<h2 style="text-align: center;">请输入要检索的书籍的名称</h2>
 
 		<div style="display: flex; justify-content: center;">
-				<input class="box" type="text" name="book_name">
+				<input class="box" type="text" name="book_name" placeholder="直接点击查询可以浏览哟~">>
 				<button class="button" type="submit" id="submit" >查询</button>		
 		</div>
 
