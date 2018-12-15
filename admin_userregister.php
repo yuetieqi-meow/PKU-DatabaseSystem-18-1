@@ -2,7 +2,7 @@
 <!DOCTYPE HTML> 
 <html>
 <head>
-<title>用户注册</title>
+<title>注册</title>
 <style>
 .error {color: #FF0000;}
 	h2{
