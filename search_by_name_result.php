@@ -157,29 +157,30 @@
 
             $warehouse_sql = 'SELECT wowner, wnumber, wprice FROM warehouse WHERE wbook = "'.$isbn.'"';
             $warehouse_result = $mysqli->query($warehouse_sql, MYSQLI_STORE_RESULT);
+            $bookall_sql = 'select bname from bookall where bISBN = "'.$isbn.'"';
+            $bookall_result = $mysqli->query($bookall_sql, MYSQLI_STORE_RESULT);
+            $name = $bookall_result -> fetch_row()[0];
 
             //判断是否登录，登录可以执行购买，否则需要注册或者登录
 			if(isset($_COOKIE['customer_name'])){
-				while(list( $owner, $number, $price, $name) = $warehouse_result -> fetch_row()){
+				while(list( $owner, $number, $price) = $warehouse_result -> fetch_row()){
 					//获取卖家姓名
 					$owner_sql = 'SELECT cname from customer where cID = "'.$owner.'"';
 					$owner_result = $mysqli->query($owner_sql, MYSQLI_STORE_RESULT);
-					$owner_name = $owner_result -> fetch_row();
+					$owner_name = $owner_result -> fetch_row()[0];
 
 					echo '<div class="sell_information">';
-					echo '	<div ><p>'.$owner_name[0].'</p></div>';
+					echo '	<div ><p>'.$owner_name.'</p></div>';
 					echo '	<div ><p>￥'.$price.'</p></div>';
 					echo '	<div ><p>库存'.$number.'本</p></div>';
 					
 					//从cookie获取用户最初在登陆界面输入的信息
 					$admin_name = $COOKIE['phone'];
 					$admin_password = $COOKIE['password'];
-					
+                    
 					echo '	<div><form action="confirm_purchase.php" method="post">
-						<input name="owner" value="'.$owner.'" style="display:none; "/>
-						<input name="owner_name" value="'.$owner_name[0].'" style="display:none; "/>
-						
-                		<input name="name" value="'.$name.'" style="display:none; "/>
+						<input name="owner" value="'.$owner_name.'" style="display:none; "/>				
+                		<input name="bookname" value="'.$name.'" style="display:none; "/>
                 		<input name="number" value="'.$number.'" style="display:none; "/>
                 		<input name="book_isbn" value="'.$isbn.'" style="display:none; "/>
                 		<input name="price" value="'.$price.'" style="display:none; "/>
@@ -189,7 +190,8 @@
 				}echo '</div>';
 				}else{
 					echo"
-					<script type='text/javascript'>  						alert('您尚未登录，无法浏览详细的商品信息和进行购买,请先登录或注册');
+					<script type='text/javascript'>  						
+                    alert('您尚未登录，无法浏览详细的商品信息和进行购买,请先登录或注册');
 						location.href='admin_login.php';
 					</script> ";
 				}
