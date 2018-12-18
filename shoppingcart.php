@@ -112,6 +112,7 @@
         ?>
     </ul>
     <h4>请确认购买信息</h4>
+    
     <?php
     //从cookie获取用户最初在登陆界面输入的信息
     $username = $_COOKIE['username'];
@@ -170,27 +171,30 @@
 
             $temp = array($isbn,$seller); //用于传给deletebook的临时变量
             echo "<tr>
-<td>".$isbn."</td>
-        <td>" . $namebook . "</td>
-        <td>" . $sellername . "</td>
-        <td>" . $pricebook . "</td>
-        <td>" . $number . "</td>
-        <td><form action='susshopping.php' method='post'>
-    <input name='isbn' value='".$isbn."' style='display: none'>
-    <input name='buyer' value='".$buyer."' style='display: none'>
-    <input name='seller' value='".$seller."' style='display: none'>
-    <input name='number' value='".$number."' style='display: none'>
-    <button class='button' type='submit' id='button' style='position: absolute;z-index: 3;display: block'>确认购买</button>
-</form> </td>
-        <td><a href='deletebook.php'>删除</a> </td>//这里要继续开发
-    </tr>";
-
+            <td>".$isbn."</td>
+            <td>" . $namebook . "</td>
+            <td>" . $sellername . "</td>
+            <td>" . $pricebook . "</td>
+            <td>" . $number . "</td>
+            <td><form action='susshopping.php' method='post'>
+                <input name='isbn' value='".$isbn."' style='display: none'>
+                <input name='buyer' value='".$buyer."' style='display: none'>
+                <input name='seller' value='".$seller."' style='display: none'>
+                <input name='number' value='".$number."' style='display: none'>
+                <button class='button' type='submit' id='button' style='position: absolute;z-index: 3;display: block'>确认购买</button>
+                </form> </td>
+            <td><form action='susdelete.php' method='post'>
+                <input name='isbn' value='".$isbn."' style='display: none'>
+                <input name='buyer' value='".$buyer."' style='display: none'>
+                <input name='seller' value='".$seller."' style='display: none'>
+                <input name='number' value='".$number."' style='display: none'>
+                <button class='delete_button' type ='submit' id = 'delete_button' style='position:abusolute; z-index:3; display:block;'>删除</button></td>
+                </tr>";
         }
-
         echo "</table>";
     }
 
     ?>
 
 </body>
-                </html>
+</html>
