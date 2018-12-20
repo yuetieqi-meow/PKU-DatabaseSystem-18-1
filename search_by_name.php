@@ -70,27 +70,30 @@
 		td{
 			padding: 5px;
 		}
+		a.recommend_buy{
+			text-decoration: underline;
+			cursor: pointer;
+		}
 	</style>
 
 	
 
 	<div id="header" style="background-color: #98FB98; padding: 5px; margin: 0;" >
-		<h1 style="text-align: center;">图书数据库检索系统</h1>		
+		<h1 style="text-align: center;">滴滴打书 · 图书购买系统</h1>		
 	</div>
 
 	<ul class="upper_navigation">
 		<li class="current_navigation"><a href="search_by_name">书目检索</a></li>
-		<li class="upper_navigation"><a href="search_owner">库存检索</a></li>
-		<li class="upper_navigation"><a href="search_sales">销量检索</a></li>
 		<li class="upper_navigation"><a href="boolean_search">高级检索</a></li>
 		
 		<?php
 			if(isset($_COOKIE['customer_name'])){
                 echo '<li class="upper_navigation" style="float: right;"><a href="admin_logout.php">退出登录</a></li>';
                 echo '<li class="upper_navigation" style="float: right;"><a href="shoppingcart.php">我的购物车</a></li>';
+                echo '<li class="upper_navigation" style="float: right;"><a href="">您好，'.$_COOKIE['customer_name'].'</a></li>';
 			}
 			else{
-				echo '<li class="upper_navigation" style="float: right;"><a href="admin_login">登陆</a></li>';
+				echo '<li class="upper_navigation" style="float: right;"><a href="admin_login">登录</a></li>';
 				echo '<li class="upper_navigation" style="float: right;"><a href="admin_userregister">注册</a></li>';
 			}
 		?>
@@ -109,7 +112,7 @@
 
 <!--以下是个性推荐部分-->
 	
-<h3 style="text-align: center;">猜您喜欢</h3>
+<h3 style="text-align: center;">猜您喜欢<br>(点击书名购买)</h3>
 
 <table border="1" rules="all">
 	<tr>
@@ -126,6 +129,16 @@
 ?>
 
 </table>
+
+<script type="text/javascript">
+	function recommend_buy(bookname){
+		var expression = '<form action="search_by_name_result" name="search_form" method="post">';
+		expression += '<input name="book_name" value="' + bookname + '"/></form>';
+		document.write(expression);
+		document.forms['search_form'].submit();
+	}
+</script>
+
 </body>
 </html>
 
