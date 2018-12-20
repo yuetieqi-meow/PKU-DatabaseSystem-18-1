@@ -151,7 +151,7 @@
                     echo "<tr>";
                     $book_result = sql_query($mysqli, 'SELECT bname, bauthor, bpress FROM bookall WHERE bISBN = "'.$isbn.'"');
                     list($bname, $bauthor, $bpress) = $book_result -> fetch_row();
-                    echo "<td>".$bname."</td><td>".$bauthor."</td><td>".$bpress."</td>";
+                    echo "<td><a class='recommend_buy' onclick='recommend_buy(\"".$bname."\")'>".$bname."<a></td><td>".$bauthor."</td><td>".$bpress."</td>";
                     $i += 1;
                     if($i == 5)break;
                     echo "</tr>";
