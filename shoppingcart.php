@@ -113,7 +113,6 @@
     </ul>
     <h4>请确认购买信息</h4>
     <?php
-    error_reporting(0);
     //从cookie获取用户最初在登陆界面输入的信息
     $username = $_COOKIE['username'];
     $password = $_COOKIE['password'];
@@ -142,17 +141,19 @@
     $sql = "SELECT * FROM shoppingcart WHERE sccustomer = '" . $_COOKIE['customer_phone'] . "'";
     $result = $mysqli->query($sql, MYSQLI_STORE_RESULT);
     $total_count = mysqli_num_rows($result);
+
     if ($total_count == 0) {
         echo "您的购物车是空的,请返回主页添加商品！";
     } else {
-
-        echo "<table width=\"100%\" border=\"1\"cellspacing=\"0\" cellpadding=\"0\">
+        echo "<table width=\"90%\" border=\"1\"cellspacing=\"0\" cellpadding=\"0\">
     <tr>
+    <td>ISBN</td>
         <td>书名</td>
         <td>卖家</td>
         <td>单价</td>
         <td>数量</td>
-        <td>操作</td>
+        <td>购买</td>
+        <td>删除</td>
     </tr>";
         while (list($isbn, $buyer, $seller, $number) = $result->fetch_row()) {
             //查书名
@@ -167,22 +168,29 @@
             $sqlsellername = "select cname from customer where cID='" . $seller . "'";
             list($sellername) = $mysqli->query($sqlsellername, MYSQLI_STORE_RESULT)->fetch_row();
 
-            $temp = array($isbn, $seller); //用于传给deletebook的临时变量
+            $temp = array($isbn,$seller); //用于传给deletebook的临时变量
             echo "<tr>
+<td>".$isbn."</td>
         <td>" . $namebook . "</td>
         <td>" . $sellername . "</td>
         <td>" . $pricebook . "</td>
         <td>" . $number . "</td>
-        <td><a href='deletebook.php?temp={$temp}'>删除</a> </td>
+        <td><form action='susshopping.php' method='post'>
+    <input name='isbn' value='".$isbn."' style='display: none'>
+    <input name='buyer' value='".$buyer."' style='display: none'>
+    <input name='seller' value='".$seller."' style='display: none'>
+    <input name='number' value='".$number."' style='display: none'>
+    <button class='button' type='submit' id='button' style='position: absolute;z-index: 3;display: block'>确认购买</button>
+</form> </td>
+        <td><a href='deletebook.php'>删除</a> </td>//这里要继续开发
     </tr>";
-
 
         }
 
-
+        echo "</table>";
     }
-
 
     ?>
 
 </body>
+                </html>
