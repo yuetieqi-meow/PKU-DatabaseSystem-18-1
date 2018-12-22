@@ -90,7 +90,7 @@
 			if(isset($_COOKIE['customer_name'])){
                 echo '<li class="upper_navigation" style="float: right;"><a href="admin_logout.php">退出登录</a></li>';
                 echo '<li class="upper_navigation" style="float: right;"><a href="shoppingcart.php">我的购物车</a></li>';
-                echo '<li class="upper_navigation" style="float: right;"><a href="">您好，'.$_COOKIE['customer_name'].'</a></li>';
+                echo '<li class="upper_navigation" style="float: right;"><a href="leavemessage.php">您好，'.$_COOKIE['customer_name'].'</a></li>';
 			}
 			else{
 				echo '<li class="upper_navigation" style="float: right;"><a href="admin_login">登录</a></li>';
