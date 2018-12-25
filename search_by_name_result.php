@@ -181,7 +181,8 @@
 					$admin_password = $COOKIE['password'];
                     
 					echo '	<div><form action="confirm_purchase.php" method="post">
-						<input name="owner" value="'.$owner_name.'" style="display:none; "/>				
+						<input name="owner" value="'.$owner.'" style="display:none; "/>
+							<input name="owner_name" value="'.$owner_name.'" style="display:none; "/>			
                 		<input name="bookname" value="'.$name.'" style="display:none; "/>
                 		<input name="number" value="'.$number.'" style="display:none; "/>
                 		<input name="book_isbn" value="'.$isbn.'" style="display:none; "/>

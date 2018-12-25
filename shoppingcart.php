@@ -123,7 +123,9 @@
         $isbn = $_POST['isbn'];
         $seller = $_POST['seller'];
         $buynumber = $_POST['current_number'];
-        $customer = $_COOKIE['customer_phone'];
+        $customer_phone = $_COOKIE['customer_phone'];
+        $search_user_sql='SELECT cID FROM customer where cphone="'.$customer_phone.'"';
+        list($customer)=$mysqli->query($search_user_sql)->fetch_row();
 
     if($_COOKIE['add_database'] == "true"){ 
         //检查本界面是不是由confirm_purchase.php调用的
@@ -149,10 +151,15 @@
     }
 
     //显示购物车信息
-    $sql = "SELECT * FROM shoppingcart WHERE sccustomer = '" . $_COOKIE['customer_phone'] . "'";
+    $customer_phone = $_COOKIE['customer_phone'];
+    $search_user_sql='SELECT cID FROM customer where cphone="'.$customer_phone.'"';
+    list($customer)=$mysqli->query($search_user_sql)->fetch_row();
+    $sql = "SELECT * FROM shoppingcart WHERE sccustomer = '".$customer."'";
     $result = $mysqli->query($sql, MYSQLI_STORE_RESULT);
     $total_count = mysqli_num_rows($result);
+
     if ($total_count == 0) {
+
         echo '<h4 style="text-align: center;">您的购物车是空的,请返回主页添加商品！</h4>';
     } else {
         echo '<table width="90%" border="1"cellspacing="0" cellpadding="0">
@@ -177,11 +184,10 @@
             //查卖家姓名
             $sellername_sql = "SELECT cname FROM customer WHERE cID='" . $seller . "'";
             list($sellername) = $mysqli->query($sellername_sql, MYSQLI_STORE_RESULT)->fetch_row();
-
             echo "<tr>
             <td>" . $isbn . "</td>
             <td>" . $namebook . "</td>
-            <td>" . $seller . "</td>
+            <td>" . $sellername . "</td>
             <td>" . $pricebook . "</td>
             <td>" . $number . "</td>
             <td><form action='susshopping_update_database.php' method='post'>
