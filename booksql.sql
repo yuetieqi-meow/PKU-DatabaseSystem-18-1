@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主机： 127.0.0.1:3306
--- 生成日期： 2018-12-22 12:49:02
+-- 生成日期： 2018-12-25 06:14:42
 -- 服务器版本： 5.7.23
 -- PHP 版本： 7.2.10
 
@@ -198,6 +198,13 @@ CREATE TABLE IF NOT EXISTS `comment` (
   `cmtreplymessage` varchar(255) COLLATE utf8_bin DEFAULT NULL,
   PRIMARY KEY (`cmtID`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- 转存表中的数据 `comment`
+--
+
+INSERT INTO `comment` (`cmtID`, `cmtcustomer`, `cmttime`, `cmtmessage`, `cmtreplystatus`, `cmtreplymessage`) VALUES
+(1, '3', '2018-12-25 00:00:00', '       谢谢陈老师', 0, NULL);
 
 -- --------------------------------------------------------
 
