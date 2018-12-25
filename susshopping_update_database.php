@@ -14,9 +14,15 @@
     $mysqli->query('set names utf8') or die('query字符集错误');
 
     $isbn = $_POST['isbn'];
-    $buyerID = $_POST['buyer'];
-    $sellerID = $_POST['seller'];
+    $buyer = $_POST['buyer'];
+    $seller = $_POST['seller'];
     $number = $_POST['number'];
+
+    $buyer_sql = 'SELECT cID FROM customer WHERE cphone="'.$buyer.'"';
+    list($buyerID) = $mysqli -> query($buyer_sql, MYSQLI_STORE_RESULT) -> fetch_row();
+
+    $seller_sql = 'SELECT cID FROM customer WHERE cname="'.$seller.'"';
+    list($sellerID) = $mysqli -> query($seller_sql, MYSQLI_STORE_RESULT) -> fetch_row();
 
     $salenumber_sql = "SELECT COUNT(*) FROM sale";
     list($salenumber) = $mysqli -> query($salenumber_sql, MYSQLI_STORE_RESULT) -> fetch_row();
@@ -26,9 +32,10 @@
     list($ordernumber) = $mysqli -> query($ordernumber_sql, MYSQLI_STORE_RESULT) -> fetch_row();
     $ordernumber = (int)$ordernumber + 1;
 
-    $warehouse_number_sql = 'SELECT wnumber FROM warehouse WHERE wbook= "'.$isbn.'"AND wowner="'.$sellerID.'"';
+    $warehouse_number_sql = 'SELECT wnumber FROM warehouse WHERE wbook= "'.$isbn.'"';
     list($warehouse_number) = $mysqli -> query($warehouse_number_sql, MYSQLI_STORE_RESULT) -> fetch_row();
     (int)$warehouse_number = (int)$warehouse_number - (int)$number;
+
     $t = time();
     $time = date("Y-m-d", $t);
     $insert_sql1 = 'INSERT INTO sale(sID, scustomer, sseller, stime) VALUES("'.$salenumber.'","'.$buyerID.'","'.$sellerID.'","'.$time.'")';
@@ -39,13 +46,13 @@
     $insert_sql3 ='INSERT INTO order_detail(oID, obook, oamount, osale) VALUES("'.$ordernumber.'","'.$isbn.'","'.$number.'","'.$salenumber.'")';
     echo $insert_sql3;
 
-    $insert_sql4 = 'DELETE FROM shoppingcart WHERE scISBN = "'.$isbn.'" AND sccustomer = "'.$buyerID.'" AND scseller = "'.$sellerID.'"';
+    $insert_sql4 = 'DELETE FROM shoppingcart WHERE scISBN = "'.$isbn.'" AND sccustomer = "'.$buyer.'" AND scseller = "'.$seller.'"';
 
     $mysqli->query($insert_sql1);
     $mysqli->query($insert_sql2);
     $mysqli->query($insert_sql3);
     $mysqli->query($insert_sql4);
-    $mysqli->commit();
+
     header("Location: susshopping.php");
 
 ?>

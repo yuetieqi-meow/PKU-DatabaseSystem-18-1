@@ -74,6 +74,26 @@
 			text-decoration: underline;
 			cursor: pointer;
 		}
+        div.footer{
+            width: 100%;
+            height: 200px;
+            background-color: #AAA;
+            position: absolute;
+            top: 900px;
+            left: 0px;
+        }
+        div.footer div{
+            width: 50%;
+            text-align: center;
+        }
+        div.footer p{
+            color: white;
+            text-decoration: underline;
+        }
+        div.footer a{
+            color: white;
+            text-decoration: none;
+        }
 	</style>
 
 	
@@ -89,8 +109,9 @@
 		<?php
 			if(isset($_COOKIE['customer_name'])){
                 echo '<li class="upper_navigation" style="float: right;"><a href="admin_logout.php">退出登录</a></li>';
+                echo '<li class="upper_navigation" style="float: right;"><a href="book_manage.php">管理我的图书</a></li>';
                 echo '<li class="upper_navigation" style="float: right;"><a href="shoppingcart.php">我的购物车</a></li>';
-                echo '<li class="upper_navigation" style="float: right;"><a href="leavemessage.php">您好，'.$_COOKIE['customer_name'].'</a></li>';
+                echo '<li class="upper_navigation" style="float: right;"><a href="">您好，'.$_COOKIE['customer_name'].'</a></li>';
 			}
 			else{
 				echo '<li class="upper_navigation" style="float: right;"><a href="admin_login">登录</a></li>';
@@ -130,16 +151,26 @@
 
 </table>
 
+<div class="footer">
+    <div>
+        <p><b>联系我们</b></p>
+        <a href="leavemessage.php"><p>留言给管理员</p></a>
+    </div>
+    <div>
+        
+    </div>
+</div>
+</body>
+
 <script type="text/javascript">
-	function recommend_buy(bookname){
-		var expression = '<form action="search_by_name_result" name="search_form" method="post">';
-		expression += '<input name="book_name" value="' + bookname + '"/></form>';
-		document.write(expression);
-		document.forms['search_form'].submit();
-	}
+    function recommend_buy(bookname){
+        var expression = '<form action="search_by_name_result" name="search_form" method="post">';
+        expression += '<input name="book_name" value="' + bookname + '"/></form>';
+        document.write(expression);
+        document.forms['search_form'].submit();
+    }
 </script>
 
-</body>
 </html>
 
 <?php

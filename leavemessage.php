@@ -105,8 +105,8 @@
 <div class="content_odd" >
     <h2>会员留言</h2>
     <form action='messagesubmit.php' method='post'>
-        请输入您给管理员的留言：<textarea name='message' style="width:300px;height:200px;">
-        </textarea>
+        <p>请输入您给管理员的留言：</p>
+        <textarea name='message' style="width:300px;height:200px;"></textarea><br>
         <button class='button' type='submit'>提交留言</button>
         </button>
     </form>

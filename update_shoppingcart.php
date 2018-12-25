@@ -17,8 +17,7 @@
         $isbn = $_POST['isbn'];
         $seller = $_POST['seller'];
         $buynumber = $_POST['current_number'];
-        $customer=$_POST['customer'];
-
+        $customer = $_COOKIE['customer_phone'];
 
         //检查本界面是不是由confirm_purchase.php调用的
         $check_repetition_sql = 'SELECT * FROM shoppingcart WHERE scISBN = "'.$isbn.'" AND sccustomer="'.$customer.'" AND scseller = "'.$seller.'"';

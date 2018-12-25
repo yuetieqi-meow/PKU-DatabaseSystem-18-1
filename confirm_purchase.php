@@ -115,26 +115,19 @@
     $mysqli->query('set names utf8') or die('query字符集错误');
     $isbn = $_POST['book_isbn'];
     $seller = $_POST['owner'];
-    $seller_name=$_POST['owner_name'];
     $price = $_POST['price'];
     $name = $_POST['bookname'];
     $number = $_POST['number'];
-    $customer_phone = $_COOKIE['customer_phone'];
-    $search_user_sql='SELECT cID FROM customer where cphone="'.$customer_phone.'"';
-    list($customer)=$mysqli->query($search_user_sql)->fetch_row();
-    echo "$customer_phone";
-    echo "$customer";
+
     echo "<br><br>ISBN：" . $isbn . "<br>";
     echo "书名：" . $name . "<br>";
     echo "价格：￥" . $price . "<br>";
-    echo "售者：" . $seller_name . "<br>";
+    echo "售者：" . $seller . "<br>";
     echo "<form action='update_shoppingcart.php' method='post'>
     请输入您要购买的数量<input name='current_number' class='box' type='number' required='required' min='1' max='" . $number . "'>
     <input name='isbn' value='" . $isbn . "' style='display:none; '>
-    <input name='seller_name' value='" . $_POST['owner_name'] . "' style='display:none; '>
     <input name='seller' value='" . $_POST['owner'] . "' style='display:none; '>
     <input name='add' value='true' style='display: none;'>
-    <input name='customer' value='" . $customer. "' style='display:none; '>
     <button class='button' type='submit' onclick='set_buy_cookie()'>一键加入购物车</button>
 </form>";
 
