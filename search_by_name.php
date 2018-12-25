@@ -155,9 +155,7 @@
     <div>
         <p><b>联系我们</b></p>
         <a href="leavemessage.php"><p>留言给管理员</p></a>
-    </div>
-    <div>
-        
+        <a href="face_identification.php"><p>管理员登录</p></a>       
     </div>
 </div>
 </body>
