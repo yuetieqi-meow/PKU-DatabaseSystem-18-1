@@ -151,7 +151,15 @@ while(list($ID, $name, $gender, $phone, $customer_password) = $result->fetch_row
 <td>".$time."</td></tr>";
             }
     }
-echo'</table>';
+echo'</table><br><br>';
+    echo'待售书籍：<br><table  width="90%" border="1" cellspacing="0" cellpadding="0" ><tr><td>书名</td><td>库存</td><td>售价</td><td>入库时间</td></tr>';
+    $search_warehouse_sql="SELECT * from warehouse where wID='".$ID."'";
+    $search_warehouse_result=$mysqli->query($search_warehouse_sql,MYSQLI_STORE_RESULT);
+    while(list($wID,$bISBN,$wowner,$wdate,$wnumber,$wprice)=$search_warehouse_result->fetch_row()){
+        list($bookname)=$mysqli->query($search_book_sql)->fetch_row();
+        echo"<tr><td>".$bookname."</td><td>".$wowner."</td><td>".$wprice."</td><td>".$wdate."</td></tr>";
+    }
+    echo"</table>";
 
 }
 
