@@ -107,7 +107,7 @@
 	</div>
 
 	<ul class="upper_navigation">
-		<li class="upper_navigation"><a href="admin_book_manage.php">书目检索</a></li>
+		<li class="upper_navigation"><a href="admin_book_manage.php">图书管理</a></li>
 		<li class="current_navigation"><a href="boolean_search">高级检索</a></li>
         <li class="upper_navigation"><a href="admin_customer_manage.php">会员管理</a></li>
 
