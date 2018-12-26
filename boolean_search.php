@@ -27,7 +27,7 @@
 			text-align: center;
 			text-decoration: none;
 			padding: 10px;
-			font-size:18;
+			font-size:18px;
 		}
 		li.upper_navigation a:hover{
 			background-color: #3CB371;
@@ -102,29 +102,16 @@
         }
 
 	</style>
-
-	
-
 	<div id="header" style="background-color: #98FB98; padding: 5px;" >
 		<h1 style="text-align: center;">滴滴打书 · 图书购买系统</h1>		
 	</div>
 
 	<ul class="upper_navigation">
-		<li class="upper_navigation"><a href="search_by_name">书目检索</a></li>
+		<li class="upper_navigation"><a href="admin_book_manage.php">书目检索</a></li>
 		<li class="current_navigation"><a href="boolean_search">高级检索</a></li>
+        <li class="upper_navigation"><a href="admin_customer_manage.php">会员管理</a></li>
 
-        <?php
-			if(isset($_COOKIE['customer_name'])){
-                echo '<li class="upper_navigation" style="float: right;"><a href="admin_logout.php">退出登录</a></li>';
-                echo '<li class="upper_navigation" style="float: right;"><a href="book_manage.php">管理我的图书</a></li>';
-                echo '<li class="upper_navigation" style="float: right;"><a href="shoppingcart.php">我的购物车</a></li>';
-                echo '<li class="upper_navigation" style="float: right;"><a href="">您好，'.$_COOKIE['customer_name'].'</a></li>';
-			}
-			else{
-				echo '<li class="upper_navigation" style="float: right;"><a href="admin_login">登录</a></li>';
-				echo '<li class="upper_navigation" style="float: right;"><a href="admin_userregister">注册</a></li>';
-			}
-		?>
+        <li class="upper_navigation" style="float: right;"><a href="manage_logout.php">退出管理员界面</a></li>
 	</ul>
 
 	<form method="post" action="boolean_search_result.php" style="margin: auto; padding :100px;">
@@ -153,39 +140,8 @@
 				<input class="box" type="text" name="term2">						
 				<button class="button" type="submit" id="submit">查询</button>		
 		</div>
-
 	</form>
-
-<!--以下是个性推荐部分-->
-	
-<h3 style="text-align: center;">猜您喜欢<br>（点击书名购买）</h3>
-
-<table border="1" rules="all">
-	<tr>
-		<td><b>书名</b></td>
-		<td><b>作者</b></td>
-		<td><b>出版社</b></td>
-	</tr>
-
-
-
-<?php 
-	require "algorithms/book_recommendation.php";
-	recommend();
-?>
-</table>
-
-<div class="footer">
-    <div>
-        <p><b>联系我们</b></p>
-        <a href="leavemessage.php"><p>留言给管理员</p></a>
-        <a href="face_identification.php"><p>管理员登录</p></a>
-
-    </div>
-</div>
-
 </body>
-
 <script type="text/javascript">
 	function recommend_buy(bookname){
 		var expression = '<form action="search_by_name_result" name="search_form" method="post">';
