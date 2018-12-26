@@ -27,7 +27,7 @@
 			text-align: center;
 			text-decoration: none;
 			padding: 10px;
-			font-size:18;
+			font-size:18px;
 		}
 		li.upper_navigation a:hover{
 			background-color: #3CB371;
@@ -76,30 +76,42 @@
 		td{
 			padding: 5px;
 		}
+		a.recommend_buy{
+			text-decoration: underline;
+			cursor: pointer;
+		}
+		div.footer{
+            width: 100%;
+            height: 200px;
+            background-color: #AAA;
+            position: absolute;
+            top: 900px;
+            left: 0px;
+        }
+        div.footer div{
+            width: 50%;
+            text-align: center;
+        }
+        div.footer p{
+            color: white;
+            text-decoration: underline;
+        }
+        div.footer a{
+            color: white;
+            text-decoration: none;
+        }
 
 	</style>
-
-	
-
 	<div id="header" style="background-color: #98FB98; padding: 5px;" >
-		<h1 style="text-align: center;">图书数据库检索系统</h1>		
+		<h1 style="text-align: center;">滴滴打书 · 图书购买系统</h1>		
 	</div>
 
 	<ul class="upper_navigation">
-		<li class="upper_navigation"><a href="search_by_name">书目检索</a></li>
-		<li class="upper_navigation"><a href="search_owner">库存检索</a></li>
-		<li class="upper_navigation"><a href="search_sales">销量检索</a></li>
+		<li class="upper_navigation"><a href="admin_book_manage.php">图书管理</a></li>
 		<li class="current_navigation"><a href="boolean_search">高级检索</a></li>
-        <?php
-        if(isset($_COOKIE['customer_name'])){
-            echo '<li class="upper_navigation" style="float: right;"><a href="admin_logout.php">退出登录</a></li>';
-            echo '<li class="upper_navigation" style="float: right;"><a href="shoppingcart.php">我的购物车</a></li>';
-        }
-        else{
-            echo '<li class="upper_navigation" style="float: right;"><a href="admin_login">登陆</a></li>';
-            echo '<li class="upper_navigation" style="float: right;"><a href="admin_userregister">注册</a></li>';
-        }
-        ?>
+        <li class="upper_navigation"><a href="admin_customer_manage.php">会员管理</a></li>
+
+        <li class="upper_navigation" style="float: right;"><a href="manage_logout.php">退出管理员界面</a></li>
 	</ul>
 
 	<form method="post" action="boolean_search_result.php" style="margin: auto; padding :100px;">
@@ -128,27 +140,16 @@
 				<input class="box" type="text" name="term2">						
 				<button class="button" type="submit" id="submit">查询</button>		
 		</div>
-
 	</form>
-
-<!--以下是个性推荐部分-->
-	
-<h3 style="text-align: center;">猜您喜欢</h3>
-
-<table border="1" rules="all">
-	<tr>
-		<td><b>书名</b></td>
-		<td><b>作者</b></td>
-		<td><b>出版社</b></td>
-	</tr>
-
-
-
-<?php 
-	require "algorithms/book_recommendation.php";
-	recommend();
-?>
-
-</table>
 </body>
+<script type="text/javascript">
+	function recommend_buy(bookname){
+		var expression = '<form action="search_by_name_result" name="search_form" method="post">';
+		expression += '<input name="book_name" value="' + bookname + '"/></form>';
+		document.write(expression);
+		document.forms['search_form'].submit();
+	}
+</script>
+
+
 </html>
