@@ -5,10 +5,11 @@
     <title>查询界面</title>
 </head>
 <body>
-error_reporting(0);
 <?php
-$isbn = $_POST['isbn'];
-$cID = $_POST['cID'];
+error_reporting(0);
+
+$cmtID = $_POST['cmtID'];
+$message = $_POST['message'];
 
 //连接数据库
 $mysqli = new mysqli('localhost', 'root', '', 'booksql');
@@ -17,7 +18,9 @@ $mysqli = new mysqli('localhost', 'root', '', 'booksql');
 $mysqli->query('set names utf8') or die('query字符集错误');
 
 //执行SQL语句
-$sql = 'DELETE FROM warehouse WHERE wbook = "' . $isbn . '" and wowner ="' . $cID . '"';
+
+$sql = "UPDATE comment SET cmtreplystatus = 1, cmtreplymessage = " .$message . "
+WHERE cmtID=" . strval($cmtID) ;
 
 $mysqli->query($sql);
 header("Location: book_manage_success.php");

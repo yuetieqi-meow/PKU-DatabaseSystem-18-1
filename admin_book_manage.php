@@ -86,14 +86,16 @@
 		<h1 style="text-align: center;">滴滴打书 · 图书管理系统</h1>		
 	</div>
 
-	<ul class="upper_navigation">
-		<li class="current_navigation"><a href="admin_book_manage.php">图书管理</a></li>
-		<li class="upper_navigation"><a href="boolean_search">高级检索</a></li>
-        <li class="upper_navigation"><a href="admin_customer_manage.php">会员管理</a></li>
-        <li class="upper_navigation" style="float: right;"><a href="manage_logout.php">退出管理员界面</a></li>
-	</ul>
-    
+
     <div style='display:inline;'>
+    <ul class="upper_navigation">
+        <li class="current_navigation"><a href="admin_book_manage.php">图书管理</a></li>
+        <li class="upper_navigation"><a href="admin_customer_manage.php">会员管理</a></li>
+        <li class="upper_navigation"><a href="admin_order_manage.php">订单管理</a></li>
+        <li class="upper_navigation"><a href="admin_comment_manage.php">留言管理</a></li>
+        <li class="upper_navigation" style="float: right;"><a href="search_by_name.php">退出管理员界面</a></li>
+    </ul>
+
 
          <form method="post" action="mana_result.php" style="margin-left: 120px; float:left;padding:50px;">
 		      <h2 style="text-align: left; padding-left:200px; color:white; font-size:40px;">查询管理图书</h2>

@@ -7,8 +7,8 @@
 <body>
 error_reporting(0);
 <?php
-$isbn = $_POST['isbn'];
-$cID = $_POST['cID'];
+$oID = $_POST['oID'];
+$oamount = $_POST['oamount'];
 
 //连接数据库
 $mysqli = new mysqli('localhost', 'root', '', 'booksql');
@@ -17,8 +17,7 @@ $mysqli = new mysqli('localhost', 'root', '', 'booksql');
 $mysqli->query('set names utf8') or die('query字符集错误');
 
 //执行SQL语句
-$sql = 'DELETE FROM warehouse WHERE wbook = "' . $isbn . '" and wowner ="' . $cID . '"';
-
+$sql = 'DELETE FROM order_detail WHERE oID = "' . $oID . '"';
 $mysqli->query($sql);
 header("Location: book_manage_success.php");
 ?>
