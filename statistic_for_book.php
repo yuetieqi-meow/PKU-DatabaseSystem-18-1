@@ -118,5 +118,15 @@ while(list($bname,$bnumber,$btype)=$sales_ranking->fetch_row()){
     echo"<tr><td>".$bname."</td><td>".$bnumber."</td><td>".$btype."</td></tr>";
 }
 echo "</table></div>";
-
+echo "<div style='background: white'>";
+echo'当前，书的种类分布情况为：<br><table width="30%" border="1" cellspacing="0" cellpadding="0">';
+$stat_number_sql="SELECT btype,COUNT(*) FROM bookall GROUP BY btype ORDER BY btype DESC ";
+$stat_number=$mysqli->query($stat_number_sql,MYSQLI_STORE_RESULT);
+$totalnumber=0;
+while (list($btype,$typenumber)=$stat_number->fetch_row()){
+    echo"<tr><td>".$btype."</td><td>".$typenumber."</td></tr>";
+    $totalnumber=$totalnumber+(int)$typenumber;
+}
+    echo"<tr><td>总计</td><td>".$totalnumber."</td></tr>";
+echo'</table>';
 ?>

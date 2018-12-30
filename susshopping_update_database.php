@@ -53,7 +53,7 @@
     $mysqli->query($insert_sql3);
     $mysqli->query($insert_sql4);
 
-header("Location: susshopping.php");
+    header("Location: susshopping.php");
 
 ?>
    

@@ -6,6 +6,7 @@
 </head>
 <body background="images/forest.jpg" >
 <style type="text/css">
+
     ul.upper_navigation{
         list-style-type: none;
         margin: 0;

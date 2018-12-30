@@ -12,7 +12,6 @@
 			padding: 10px;
 			background-color: #98FB98;
 			opacity:0.8
-			
 		}
 		li{
 			display: inline;

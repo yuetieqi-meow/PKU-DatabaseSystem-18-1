@@ -106,24 +106,13 @@
 		<h1 style="text-align: center;">滴滴打书 · 图书购买系统</h1>		
 	</div>
 
-    <ul class="upper_navigation">
-        <li class="upper_navigation"><a href="search_by_name">书目检索</a></li>
-        <li class="current_navigation"><a href="boolean_search">高级检索</a></li>
+	<ul class="upper_navigation">
+		<li class="upper_navigation"><a href="admin_book_manage.php">图书管理</a></li>
+		<li class="current_navigation"><a href="boolean_search">高级检索</a></li>
+        <li class="upper_navigation"><a href="admin_customer_manage.php">会员管理</a></li>
 
-        <?php
-        if(isset($_COOKIE['customer_name'])){
-            echo '<li class="upper_navigation" style="float: right;"><a href="admin_logout.php">退出登录</a></li>';
-            echo '<li class="upper_navigation" style="float: right;"><a href="book_manage.php">管理我的图书</a></li>';
-            echo '<li class="upper_navigation" style="float: right;"><a href="shoppingcart.php">我的购物车</a></li>';
-            echo '<li class="upper_navigation" style="float: right;"><a href="">您好，'.$_COOKIE['customer_name'].'</a></li>';
-        }
-        else{
-            echo '<li class="upper_navigation" style="float: right;"><a href="admin_login">登录</a></li>';
-            echo '<li class="upper_navigation" style="float: right;"><a href="admin_userregister">注册</a></li>';
-        }
-        ?>
-
-    </ul>
+        <li class="upper_navigation" style="float: right;"><a href="manage_logout.php">退出管理员界面</a></li>
+	</ul>
 
 	<form method="post" action="boolean_search_result.php" style="margin: auto; padding :100px;">
 		<h2 style="text-align: center;">请输入高级检索的条件</h2>
