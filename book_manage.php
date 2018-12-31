@@ -4,37 +4,54 @@
     <meta charset="UTF-8">
     <title>查询界面</title>
 </head>
-<body background="images/forest.jpg" style="background-repeat:no-repeat"> 
+<body> 
     <style type="text/css">
-        ul.upper_navigation{
-            list-style-type: none;
+        body{
+            background-color:rgba(99,99,cc,0.5);
+            font-family: 微软雅黑；
+        }
+        *{
+            font-family: 微软雅黑；
+        }
+        #header{
+            background-color: #455A64; 
+            padding: 5px; 
             margin: 0;
-            padding: 10px;
-            background-color: #98FB98;
-            opacity:0.8
-            
+            border-radius:5px 5px 0 0;
         }
-        li{
-            display: inline;
-            margin: 0px;
-            
-        }
-        li.current_navigation a{
-            background-color: #3CB371;
-        }
-        li.upper_navigation a,li.current_navigation a{
-            color: black;
+        .title{
             text-align: center;
-            text-decoration: none;
-            padding: 10px;
-            font-size:18;
+            color:#fff;
         }
-        li.upper_navigation a:hover{
-            background-color: #3CB371;
-        }
-        li.upper_navigation a:visited{
-            color: black;
-        }
+		ul.upper_navigation{
+			list-style-type: none;
+			margin: 0;
+			padding: 10px;
+			background-color: #90A4AE;
+			opacity:0.8;
+			border-radius: 0 0 5px 5px;
+		}
+		li{
+			display: inline;
+			margin: 0px;
+			
+		}
+		li.current_navigation a{
+			background-color: #3CB371;
+		}
+		li.upper_navigation a,li.current_navigation a{
+			color: black;
+			text-align: center;
+			text-decoration: none;
+			padding: 10px;
+			font-size:18;
+		}
+		li.upper_navigation a:hover{
+			background-color: #3CB371;
+		}
+		li.upper_navigation a:visited{
+			color: black;
+		}
        
         button.button{
             width:100px;
@@ -103,17 +120,39 @@
             padding: 5px 20px;
             font-size: 20px;
             color: white;
-            background-color: #20B2AA;
+            background-color: #3CB371;
             border: solid;
-            border-color: #20B2AA;
+            border-color: #3CB371;
             opacity:0.9;
         }
+        div.footer{
+            width: 100%;
+            height: 150px;
+            background-color: #90A4AE;
+            border-radius: 5px 5px 0 0;
+        }
+        .fixed-bottom {position: fixed;bottom: 0;width:100%;}
+        div.footer div{
+            text-align: center;
+            width: 100%;
+            display: inline-block;
+        }
+        div.footer p{
+            color: white;
+            text-decoration: underline;
+            text-align: center;
+            font-size: 24px;
+        }
+        div.footer a{
+            color: white;
+        }
+        
     </style>
 
     
 
-    <div id="header" style="background-color: #98FB98; padding: 5px; margin: 0;" >
-        <h1 style="text-align: center;">管理我的图书</h1>        
+    <div id="header">
+        <h1 class="title">管理我的图书</h1>        
     </div>
 
     <ul class="upper_navigation">
@@ -122,7 +161,8 @@
     <?php
         if(isset($_COOKIE['customer_name'])){
             echo '<li class="upper_navigation" style="float: right;"><a href="admin_logout.php">退出登录</a></li>';
-            echo '<li class="upper_navigation" style="float: right;"><a href="book_manage.php">管理我的图书</a></li>';
+            echo '<li class="current_navigation" style="float: right;"><a href="book_manage.php">管理我的图书</a></li>';
+            echo '<li class="upper_navigation" style="float: right;"><a href="leavemessage.php">我的留言</a></li>';
             echo '<li class="upper_navigation" style="float: right;"><a href="shoppingcart.php">我的购物车</a></li>';
             echo '<li class="upper_navigation" style="float: right;"><a href="">您好，'.$_COOKIE['customer_name'].'</a></li>';
         }
@@ -133,9 +173,9 @@
     ?>
     </ul>
 
-    <div class="content_odd" style="background-color: orange; text-align: center;">
-        <h2>您所出售的图书</h2>
-    </div>
+    
+    <h1 style="text-align: center;">您所出售的图书</h1>
+
     <div class="content_odd" style="background-color: orange; text-align: center;">
         <p>ISBN</p>
         <p>书名</p>
@@ -170,13 +210,21 @@
         <p>'.$author.'</p>
         <p>'.$press.'</p>
         <p><input name="number" class="box" type="number" required="required" min="1" max="" value="'.$number.'"></p>
-        <p><input name="price" class="box" type="number" required="required" min="0" max="" value="'.$price.'"></p>
+        <p><input name="price" class="box" type="number" required="required" min="0" max="" value="'.$price.'" step="0.01"></p>
         </div>';  
     }
     ?>
     <div style="width: 100%; text-align: center; margin-top: 30px; display: inline-block;">
         <button id="submit" onclick="submit()">提交</button>
+        <p></p>
     </div>
+        <div class="footer">
+    <div>
+        <p>联系我们</p>
+        <a href="leavemessage.php">留言</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <a href="face_identification.php">管理员登录</a>       
+    </div>
+</div>
     </body>
 
     <script type="text/javascript">
@@ -194,5 +242,19 @@
         document.write(expression);
         document.forms['requestFrom'].submit();
     }
+ $(function(){
+    function footerPosition(){
+        $("footer").removeClass("fixed-bottom");
+        var contentHeight = document.body.scrollHeight,//网页正文全文高度
+            winHeight = window.innerHeight;//可视窗口高度，不包括浏览器顶部工具栏
+        if(!(contentHeight > winHeight)){
+            //当网页正文高度小于可视窗口高度时，为footer添加类fixed-bottom
+            $("footer").addClass("fixed-bottom");
+        }
+    }
+    footerPosition();
+    $(window).resize(footerPosition);
+});
     </script>
+
 </html>
