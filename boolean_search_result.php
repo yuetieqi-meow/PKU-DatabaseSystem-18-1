@@ -37,15 +37,15 @@
 		}
 		div.content_odd{
 			background-color: DarkGray;
-			padding: 5px;
 			opacity:0.8;
-			float:right;			
+			float:right;
+			width: 100%;			
 		}
 		div.content_even{
 			background-color: AliceBlue;
-			padding: 5px;
 			opacity:0.8;
 			float:right;
+			width: 100%;
 		}
 		div:link{}
 		div:hover{
@@ -91,16 +91,16 @@
 		<h2 style="text-align: center;">高级检索 · 检索结果</h2>
 	</div>
 	<ul class="upper_navigation">
-		<li class="current_navigation"><a href="search_by_name">书目检索</a></li>
-		<li class="upper_navigation"><a href="search_owner">库存检索</a></li>
-		<li class="upper_navigation"><a href="search_sales">销量检索</a></li>
-		<li class="upper_navigation"><a href="boolean_search">高级检索</a></li>
+		<li class="upper_navigation"><a href="search_by_name">书目检索</a></li>
+		<li class="current_navigation"><a href="boolean_search">高级检索</a></li>
         <?php
-        if(isset($_COOKIE['admin_username'])){
-            echo '<li class="upper_navigation" style="float: right;"><a href="admin_logout">'.$_COOKIE['admin_username'].'</a></li>';
+        if(isset($_COOKIE['customer_name'])){
+            echo '<li class="upper_navigation" style="float: right;"><a href="admin_logout.php">退出登录</a></li>';
+            echo '<li class="upper_navigation" style="float: right;"><a href="shoppingcart.php">我的购物车</a></li>';
+            echo '<li class="upper_navigation" style="float: right;"><a href="">您好，'.$_COOKIE['customer_name'].'</a></li>';
         }
         else{
-            echo '<li class="upper_navigation" style="float: right;"><a href="admin_login">登陆</a></li>';
+            echo '<li class="upper_navigation" style="float: right;"><a href="admin_login">登录</a></li>';
             echo '<li class="upper_navigation" style="float: right;"><a href="admin_userregister">注册</a></li>';
         }
         ?>
@@ -162,24 +162,33 @@
 
             $warehouse_sql = 'SELECT wowner, wnumber, wprice FROM warehouse WHERE wbook = "'.$isbn.'"';
             $warehouse_result = $mysqli->query($warehouse_sql, MYSQLI_STORE_RESULT);
+
+            $buy_information_avaliable = false;
             while(list($owner, $number, $price) = $warehouse_result -> fetch_row()){
+            	$buy_information_avaliable = true;
+
                 //获取作者姓名
                 $owner_sql = 'SELECT cname from customer where cID = "'.$owner.'"';
                 $owner_result = $mysqli->query($owner_sql, MYSQLI_STORE_RESULT);
-                $owner_name = $owner_result -> fetch_row();
+                $owner_name = $owner_result -> fetch_row()[0];
 
                 echo '<div class="sell_information">';
-                echo '	<div><p>'.$owner_name[0].'</p></div>';
+                echo '	<div><p>'.$owner_name.'</p></div>';
                 echo '	<div><p>￥'.$price.'</p></div>';
                 echo '	<div><p>库存'.$number.'本</p></div>';
                 echo '	<div><form action="confirm_purchase.php" method="post">
-                	<input name="owner" value="'.$owner.'" style="display:none; "/>
-                	<input name="book_isbn" value="'.$isbn.'" style="display:none; "/>
-                	<input name="price" value="'.$price.'" style="display:none; "/>
-                	<button type="submit">购买</button>
-                		</form></div>';
+						<input name="owner" value="'.$owner_name.'" style="display:none; "/>				
+                		<input name="bookname" value="'.$name.'" style="display:none; "/>
+                		<input name="number" value="'.$number.'" style="display:none; "/>
+                		<input name="book_isbn" value="'.$isbn.'" style="display:none; "/>
+                		<input name="price" value="'.$price.'" style="display:none; "/>
+						<button type="submit">购买</button>
+							</form></div>';
 
                 echo '</div>';
+            }
+            if($buy_information_avaliable == false){
+                    echo '<h3 style="text-align:center;">暂时没有用户出售本书</h3>';
             }
 			echo '</div>';
 			

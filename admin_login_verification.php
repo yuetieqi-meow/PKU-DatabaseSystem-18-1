@@ -45,12 +45,13 @@ else{
         buildRequestForm('admin_login.php', $data);
     }
     else{		//登录正常
-        $query_name = 'SELECT cname FROM customer where cphone = "'.$customer_phone.'"';
+        $query_name = 'SELECT cID, cname FROM customer where cphone = "'.$customer_phone.'"';
         $query_name_result = $mysqli->query($query_name, MYSQLI_STORE_RESULT);
-        $customer_name = $query_name_result->fetch_row()[0];
+        list($customer_id, $customer_name) = $query_name_result->fetch_row();
         echo $customer_name;
         setcookie('customer_name', $customer_name);
         setcookie('customer_phone', $customer_phone);
+        setcookie('customer_id', $customer_id);
         header("Location: search_by_name.php");
     }
 }

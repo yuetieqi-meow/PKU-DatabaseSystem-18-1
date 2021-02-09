@@ -12,13 +12,11 @@
         padding: 10px;
         background-color: #98FB98;
         opacity: 0.8
-
     }
 
     li {
         display: inline;
         margin: 0px;
-
     }
 
     li.current_navigation a {
@@ -43,27 +41,12 @@
 
     div.content_odd {
         background-color: DarkGray;
-        padding: 5px;
         opacity: 0.8;
         float: right;
+        width: 100%;
+        display: inline-block;
     }
-
-    div.content_even {
-        background-color: AliceBlue;
-        padding: 5px;
-        opacity: 0.8;
-        float: right;
-    }
-
-    div:link {
-    }
-
-    div:hover {
-        background-color: #3CB371;
-        opacity: 0.8;
-    }
-
-    #submit {
+#submit {
         width: 200px;
         height: 50px;
         padding: 5px 20px;
@@ -96,21 +79,25 @@
 </style>
 <div id="header" style="background-color: #98FB98; padding: 5px;">
     <h2 style="text-align: center;">加入购物车</h2>
+</div>
+
     <ul class="upper_navigation">
-        <li class="current_navigation"><a href="search_by_name">书目检索</a></li>
-        <li class="upper_navigation"><a href="search_owner">库存检索</a></li>
-        <li class="upper_navigation"><a href="search_sales">销量检索</a></li>
+        <li class="upper_navigation"><a href="search_by_name">书目检索</a></li>
         <li class="upper_navigation"><a href="boolean_search">高级检索</a></li>
         <?php
         if (isset($_COOKIE['customer_name'])) {
             echo '<li class="upper_navigation" style="float: right;"><a href="admin_logout.php">退出登录</a></li>';
             echo '<li class="upper_navigation" style="float: right;"><a href="shoppingcart.php">我的购物车</a></li>';
+            echo '<li class="upper_navigation" style="float: right;"><a href="">您好，'.$_COOKIE['customer_name'].'</a></li>';
         } else {
             echo '<li class="upper_navigation" style="float: right;"><a href="admin_login">登陆</a></li>';
             echo '<li class="upper_navigation" style="float: right;"><a href="admin_userregister">注册</a></li>';
         }
         ?>
     </ul>
+</div>
+
+<div class="content_odd">
     <h4>请确认购买信息</h4>
     <?php
     error_reporting(0);
@@ -127,23 +114,23 @@
     //解决中文显示成问号的问题
     $mysqli->query('set names utf8') or die('query字符集错误');
     $isbn = $_POST['book_isbn'];
-    $seller = $_POST['owner_name'];
+    $seller = $_POST['owner'];
     $price = $_POST['price'];
-    $name = $_POST['name'];
+    $name = $_POST['bookname'];
     $number = $_POST['number'];
 
     echo "<br><br>ISBN：" . $isbn . "<br>";
     echo "书名：" . $name . "<br>";
     echo "价格：￥" . $price . "<br>";
-    echo "售卖者:" . $seller . "<br>";
-    echo "<form action='shoppingcart.php' method='post'>
+    echo "售者：" . $seller . "<br>";
+    echo "<form action='update_shoppingcart.php' method='post'>
     请输入您要购买的数量<input name='current_number' class='box' type='number' required='required' min='1' max='" . $number . "'>
     <input name='isbn' value='" . $isbn . "' style='display:none; '>
     <input name='seller' value='" . $_POST['owner'] . "' style='display:none; '>
-    <button class='button' type='submit' >一键加入购物车</button>
+    <input name='add' value='true' style='display: none;'>
+    <button class='button' type='submit' onclick='set_buy_cookie()'>一键加入购物车</button>
 </form>";
 
-
     ?>
-
+</div>
 </body>
